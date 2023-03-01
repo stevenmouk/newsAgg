@@ -118,7 +118,7 @@ export default function Home() {
     //   }
     // }
 
-    let res = await fetch("http://localhost:3000/api/bookapi/", {
+    let res = await fetch("/api/bookapi/", {
       method: "POST",
       mode: "cors",
       headers: {
