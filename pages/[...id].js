@@ -5,10 +5,39 @@ import { ImBooks } from "react-icons/im";
 import Router, { useRouter } from "next/router";
 import Link from "next/link";
 import Head from "next/head";
+
 // import UserAgent from "user-agents";
 
-export default function Test({ newData }) {
+export default function Test({ id }) {
+  const [newData, setNewData] = useState(null);
   useEffect(() => {
+    async function getArticle() {
+      let article = "";
+      for (let i = 0; i < id.length; i++) {
+        if (i == 0) {
+          article += id[i] + "//";
+        } else if (i != id.length - 1) {
+          article += id[i] + "/";
+        } else {
+          article += id[i];
+        }
+      }
+
+      let res = await fetch("http://localhost:3000/api/bookapi/", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(`${article}`),
+      });
+      let data = await res.json();
+      let newData = data.result;
+      setNewData(newData);
+    }
+
+    getArticle();
+
     if (
       document.getElementsByClassName("o-cookie-message ")[0]?.classList != null &&
       document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML != undefined
@@ -47,28 +76,6 @@ export async function getServerSideProps(context) {
   const { params } = context;
   const { id } = params;
 
-  let article = "";
-  for (let i = 0; i < id.length; i++) {
-    if (i == 0) {
-      article += id[i] + "//";
-    } else if (i != id.length - 1) {
-      article += id[i] + "/";
-    } else {
-      article += id[i];
-    }
-  }
-
-  let res = await fetch("http://localhost:3000/api/bookapi/", {
-    method: "POST",
-    mode: "cors",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(`${article}`),
-  });
-  let data = await res.json();
-  let newData = data.result;
-
   // const article2 = article;
   // const array = article.split("/");
   // var base = array[0] + "//" + array[2];
@@ -88,7 +95,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      newData: newData,
+      id: id,
     },
   };
 }
