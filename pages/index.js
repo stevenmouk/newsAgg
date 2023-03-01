@@ -12,6 +12,8 @@ export default function Home() {
   const [news, setNews] = useState([]);
   const [blogs, setBlogs] = useState([]);
   const [data, setData] = useState();
+  const [newData, setNewData] = useState(null);
+  console.log(newData);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -105,6 +107,29 @@ export default function Home() {
   //   console.log(newData);
   // }
 
+  async function getArticle(article) {
+    // for (let i = 0; i < id.length; i++) {
+    //   if (i == 0) {
+    //     article += id[i] + "//";
+    //   } else if (i != id.length - 1) {
+    //     article += id[i] + "/";
+    //   } else {
+    //     article += id[i];
+    //   }
+    // }
+
+    let res = await fetch("http://localhost:3000/api/bookapi/", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(`${article}`),
+    });
+    let data = await res.json();
+    let newData = data.result;
+    setNewData(newData);
+  }
   return (
     <div>
       <Head>
@@ -173,13 +198,12 @@ export default function Home() {
             {news
               ? news.map((article) => {
                   return (
-                    <Link
+                    <div
                       className="mb-10"
-                      as={`/https:/www.ft.com${article.url}`}
-                      href={`/https:/www.ft.com${article.url}`}
+                      onClick={() => getArticle(`https://www.ft.com${article.url}`)}
                     >
                       {article.title}
-                    </Link>
+                    </div>
                   );
                 })
               : ""}
