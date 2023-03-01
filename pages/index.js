@@ -5,7 +5,8 @@ import Image from "next/image";
 import TradingViewWidget from "../components/trading";
 
 import Link from "next/link";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
+
 import { useState } from "react";
 
 export default function Home() {
@@ -13,7 +14,7 @@ export default function Home() {
   const [blogs, setBlogs] = useState([]);
   const [data, setData] = useState();
   const [newData, setNewData] = useState(null);
-  console.log(newData);
+  const router = useRouter();
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -129,6 +130,9 @@ export default function Home() {
     let data = await res.json();
     let newData = data.result;
     setNewData(newData);
+
+    localStorage.setItem("newData", JSON.stringify(newData));
+    router.push(`/${article}`);
   }
   return (
     <div>
