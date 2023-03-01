@@ -200,7 +200,7 @@ export default function Home() {
                   return (
                     <div
                       className="mb-10"
-                      onClick={() => getArticle("https://www.ft.com${article.url}")}
+                      onClick={() => getArticle(`https://www.ft.com${article.url}`)}
                     >
                       {article.title}
                     </div>
