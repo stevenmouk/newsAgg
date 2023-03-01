@@ -154,7 +154,7 @@ export default function Home() {
 
           <div className="w-full min-h-screen flex items-center flex-col mt-5  ">
             <h1 className="w-[80%] sm:w-full pt-20  pb-7  max-w-screen-md  text-4xl sm:text-5xl md:text-7xl font-extrabold sm:tracking-tight text-center">
-              Search over 30 million scholarly articles.
+              Search over 30 million scholarly
             </h1>
             <p className="text-black w-[80%] sm:w-[50%]">
               Free Scholarly Articles works by scraping open access content from over 50,000
