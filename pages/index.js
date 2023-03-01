@@ -198,12 +198,9 @@ export default function Home() {
             {news
               ? news.map((article) => {
                   return (
-                    <div
-                      className="mb-10"
-                      onClick={() => getArticle(`https://www.ft.com${article.url}`)}
-                    >
+                    <Link className="mb-10" href={`/https://www.ft.com${article.url}`}>
                       {article.title}
-                    </div>
+                    </Link>
                   );
                 })
               : ""}
