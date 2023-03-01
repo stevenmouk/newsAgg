@@ -198,9 +198,12 @@ export default function Home() {
             {news
               ? news.map((article) => {
                   return (
-                    <Link className="mb-10" href={`/https://www.ft.com${article.url}`}>
+                    <div
+                      className="mb-10"
+                      onClick={() => getArticle("https://www.ft.com${article.url}")}
+                    >
                       {article.title}
-                    </Link>
+                    </div>
                   );
                 })
               : ""}
