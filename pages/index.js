@@ -7,7 +7,7 @@ import TradingViewWidget from "../components/trading";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [news, setNews] = useState([]);
@@ -16,66 +16,76 @@ export default function Home() {
   const [newData, setNewData] = useState(null);
   const router = useRouter();
 
-  async function handleSubmit(e) {
-    e.preventDefault();
+  useEffect(() => {
+    async function x() {
+      try {
+        let res = await fetch("/api/newsArticleApi/", {
+          method: "POST",
+          mode: "cors",
+        });
 
-    let res = await fetch("/api/newsArticleApi/", {
-      method: "POST",
-      mode: "cors",
-    });
+        let res2 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+        });
+        let data2 = await res2.json();
 
-    let res2 = await fetch("/api/financialtimes/", {
-      method: "POST",
-      mode: "cors",
-    });
-    let data2 = await res2.json();
+        let arr = [];
+        let $3 = cheerio.load(data2.result);
+        $3("#site-content .o-teaser__heading a", data2.result).each(function () {
+          if ($3(this)?.attr("href")?.includes("content")) {
+            arr.push({ url: $3(this).attr("href"), title: $3(this).text() });
+          }
+        });
 
-    let arr = [];
-    let $3 = cheerio.load(data2.result);
-    $3("#site-content a", data2.result).each(function () {
-      if ($3(this)?.attr("href")?.includes("content")) {
-        arr.push({ url: $3(this).attr("href"), title: $3(this).text() });
+        setNews(arr);
+        $3(this).attr("href");
+        let data = await res.json();
+
+        // console.log(data.result);
+        let $ = cheerio.load(data.result);
+
+        $(".table-fixed ", data.result)
+          .first()
+          .each(function () {
+            $(this)
+              .find(".nn")
+              .each(function () {
+                let url = $(this).find("a").attr("href");
+                if (url != undefined && !url.includes("bloomberg")) {
+                  // arr.push(url);
+                }
+              });
+          });
+
+        let $2 = cheerio.load(data.result);
+
+        let arr2 = [];
+        $2(".table-fixed ", data.result)
+          .last()
+          .each(function () {
+            $(this)
+              .find(".nn")
+              .each(function () {
+                let url = $(this).find("a").attr("href");
+                if (url != undefined && !url.includes("bloomberg")) {
+                  arr2.push(url);
+                }
+              });
+          });
+
+        setBlogs(arr2);
+      } catch (error) {
+        console.log(error);
       }
-    });
+    }
+    x();
+    const interval = setInterval(() => {
+      x();
+    }, 60000);
 
-    setNews(arr);
-    $3(this).attr("href");
-    let data = await res.json();
-
-    // console.log(data.result);
-    let $ = cheerio.load(data.result);
-
-    $(".table-fixed ", data.result)
-      .first()
-      .each(function () {
-        $(this)
-          .find(".nn")
-          .each(function () {
-            let url = $(this).find("a").attr("href");
-            if (url != undefined && !url.includes("bloomberg")) {
-              // arr.push(url);
-            }
-          });
-      });
-
-    let $2 = cheerio.load(data.result);
-
-    let arr2 = [];
-    $2(".table-fixed ", data.result)
-      .last()
-      .each(function () {
-        $(this)
-          .find(".nn")
-          .each(function () {
-            let url = $(this).find("a").attr("href");
-            if (url != undefined && !url.includes("bloomberg")) {
-              arr2.push(url);
-            }
-          });
-      });
-
-    setBlogs(arr2);
-  }
+    return () => clearInterval(interval);
+  }, []);
 
   // async function search(article) {
   //   let res = await fetch("/api/bookapi/", {
@@ -165,7 +175,7 @@ export default function Home() {
               publishers and repositories, making it easy to read and use. Simply enter the DOI code
               of the article and hit search.
             </p>
-            <form onSubmit={handleSubmit} className="flex justify-center mt-20">
+            <form className="flex justify-center mt-20">
               <div className="mb-3 xl:w-96">
                 <div className="input-group relative flex flex-row items-stretch w-full mb-4">
                   <input
