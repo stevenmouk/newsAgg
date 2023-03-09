@@ -1,0 +1,274 @@
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.lkR3Y {
+  margin-right: 8px;
+}
+
+.NBZP0e {
+  display: flex;
+  position: relative;
+  height: 100%;
+  max-width: 100%;
+  overflow-y: hidden;
+  overflow-x: overlay;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 17px;
+  margin-bottom: -17px;
+}
+
+.SJyhnc {
+  overflow: hidden;
+  width: 100%;
+}
+
+.MSaaqf {
+  margin-right: -24px;
+}
+
+.e1AOyf {
+  max-width: 1024px;
+  padding: 24px 48px;
+  margin: auto;
+  position: relative;
+}
+
+.KdK6Xc .e1AOyf {
+  padding-top: 12px;
+}
+
+.KdK6Xc {
+  min-height: 145px;
+  margin-bottom: 8px;
+  padding-bottom: 16px;
+  background: #f8f9fa;
+  position: relative;
+}
+
+.T4LgNb {
+  min-height: 100%;
+  height: auto;
+  position: relative;
+}
+
+.SSPGKf {
+  display: block;
+  overflow-y: hidden;
+  z-index: 1;
+}
+
+.zQTmif {
+  height: 100%;
+}
+
+.SSPGKf {
+  position: relative;
+  min-height: 100%;
+}
+
+.zQTmif {
+  height: auto;
+}
+
+.ccEnac {
+  background: white;
+  overflow: visible;
+}
+
+.IqBfM {
+  bottom: auto;
+  height: 100%;
+  right: auto;
+  width: auto;
+}
+
+.vReuC {
+  display: flex;
+  -webkit-box-align: center;
+  box-align: center;
+  align-items: center;
+  padding: 6px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #dadce0;
+  white-space: nowrap;
+}
+
+.GEykwb {
+  color: #137333;
+}
+
+.vReuC:hover {
+  background-color: #f8f9fa;
+}
+
+.hEj6ke {
+  display: flex;
+  height: 32px;
+  min-width: 32px;
+  overflow: hidden;
+}
+
+.VKMjFc {
+  display: flex;
+  min-width: 64px;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  flex-direction: column;
+  letter-spacing: 0.025em;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+  margin-right: 8px;
+  max-width: 120px;
+}
+
+.T7Akdb {
+  display: flex;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  flex-direction: column;
+  letter-spacing: 0.025em;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+  text-align: right;
+}
+
+.tGqfud {
+  transform: translateY(calc(-100% + 32px));
+  transition: transform 0.2s linear;
+}
+
+.pKBk1e {
+  color: #202124;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.wzUQBf {
+  color: #3c4043;
+}
+
+.NydbP {
+  height: 32px;
+  overflow: hidden;
+  display: inline-block;
+  font-family: Roboto, Arial, sans-serif;
+}
+
+.a3qxNc {
+  min-width: unset;
+  font-weight: 500;
+  height: 16px;
+}
+
+.SEGxAb {
+  overflow: hidden;
+  display: block;
+}
+
+.n1rUf {
+  -webkit-box-align: center;
+  box-align: center;
+  align-items: center;
+  height: 32px;
+  width: 32px;
+  min-width: 32px;
+  border-radius: 8px;
+  margin-right: 8px;
+  display: flex;
+}
+
+.n1rUf.uoQxH {
+  background: #e6f4ea;
+  color: #137333;
+}
+
+.lh92 {
+  height: 16px;
+  overflow: hidden;
+  display: block;
+}
+
+.zWwE1 {
+  transform: translateY(calc(-100% + 28px));
+  transition: transform 0.2s linear;
+}
+
+.Ez2Ioe {
+  color: #137333;
+}
+.Ebnabc {
+  color: #d93025;
+}
+
+.n1rUf.tmWKn {
+  background: #fce8e6;
+  color: #c5221f;
+}
+
+.t5mBV {
+  transform: translateY(calc(-100% + 16px));
+}
+
+.P2Luy.Ez2Ioe {
+  color: #137333;
+}
+
+.BAftM {
+  transition: transform 0.2s linear;
+  display: flex;
+  flex-direction: column;
+}
+
+.ZoIEk.ZoIEk {
+  height: 16px;
+  margin: auto;
+}
+
+.s1OkXb {
+  transform: translateY(calc(-100% + 16px));
+  transition: transform 0.2s linear;
+}
+
+.JwB6zf {
+  display: flex;
+  -webkit-box-align: center;
+  box-align: center;
+  align-items: center;
+  box-pack: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+
+.V7hZne {
+  -webkit-box-align: end;
+  box-align: end;
+  align-items: flex-end;
+  box-pack: end;
+  -webkit-box-pack: end;
+  justify-content: flex-end;
+}
+
+.NMm5M {
+  fill: currentColor;
+  flex-shrink: 0;
+}
+
+.YMlKec {
+  display: flex;
+  align-items: center;
+}

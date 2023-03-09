@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  const response = await fetch(`https://www.ft.com/companies`);
+  const response = await fetch(`https://www.ft.com/search?q=technology&sort=date`);
 
   const html = await response.text();
 
