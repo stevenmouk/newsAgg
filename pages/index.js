@@ -3,16 +3,17 @@ import cheerio from "cheerio";
 import Head from "next/head";
 import Image from "next/image";
 import TradingViewWidget from "../components/trading";
-
+import Parser from "rss-parser";
 import Link from "next/link";
 import Router, { useRouter } from "next/router";
 
 import { useEffect, useState } from "react";
 import Ticker from "../components/ticker";
+import NewsItem from "../components/newsItem";
 
 export default function Home() {
   const [news, setNews] = useState([]);
-  const [blogs, setBlogs] = useState([]);
+  // const [blogs, setBlogs] = useState([]);
   const [data, setData] = useState();
   const [newData, setNewData] = useState(null);
   const router = useRouter();
@@ -20,62 +21,125 @@ export default function Home() {
   useEffect(() => {
     async function x() {
       try {
-        let res = await fetch("/api/newsArticleApi/", {
+        // let res = await fetch("/api/newsArticleApi/", {
+        //   method: "POST",
+        //   mode: "cors",
+        // });
+
+        let res = await fetch("/api/financialtimes/", {
           method: "POST",
           mode: "cors",
+          body: "https://www.ft.com/technology?format=rss",
+        });
+        let data = await res.json();
+
+        let arr = [];
+        // let $3 = cheerio.load(data2.result);
+        // $3("#site-content .o-teaser__heading a", data2.result).each(function () {
+        //   if ($3(this)?.attr("href")?.includes("content")) {
+        //     arr.push({ url: $3(this).attr("href"), title: $3(this).text() });
+        //   }
+        // });
+
+        let parser = new Parser();
+
+        let feed = await parser.parseString(data.result);
+
+        feed.items.forEach((item) => {
+          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         });
 
         let res2 = await fetch("/api/financialtimes/", {
           method: "POST",
           mode: "cors",
+          body: "https://www.economist.com/finance-and-economics/rss.xml",
         });
         let data2 = await res2.json();
 
-        let arr = [];
-        let $3 = cheerio.load(data2.result);
-        $3("#site-content .o-teaser__heading a", data2.result).each(function () {
-          if ($3(this)?.attr("href")?.includes("content")) {
-            arr.push({ url: $3(this).attr("href"), title: $3(this).text() });
-          }
+        feed = await parser.parseString(data2.result);
+
+        feed.items.forEach((item) => {
+          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         });
 
-        setNews(arr);
-        $3(this).attr("href");
-        let data = await res.json();
+        let res3 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+          body: "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+        });
+        let data3 = await res3.json();
 
-        // console.log(data.result);
-        let $ = cheerio.load(data.result);
+        feed = await parser.parseString(data3.result);
 
-        $(".table-fixed ", data.result)
-          .first()
-          .each(function () {
-            $(this)
-              .find(".nn")
-              .each(function () {
-                let url = $(this).find("a").attr("href");
-                if (url != undefined && !url.includes("bloomberg")) {
-                  // arr.push(url);
-                }
-              });
-          });
+        feed.items.forEach((item) => {
+          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        });
 
-        let $2 = cheerio.load(data.result);
+        // let res4 = await fetch("/api/financialtimes/", {
+        //   method: "POST",
+        //   mode: "cors",
+        //   body: "https://finance.yahoo.com/news/rss",
+        // });
+        // let data4 = await res4.json();
 
-        let arr2 = [];
-        $2(".table-fixed ", data.result)
-          .last()
-          .each(function () {
-            $(this)
-              .find(".nn")
-              .each(function () {
-                let url = $(this).find("a").attr("href");
-                if (url != undefined && !url.includes("bloomberg")) {
-                  arr2.push(url);
-                }
-              });
-          });
+        // feed = await parser.parseString(data4.result);
 
-        setBlogs(arr2);
+        // feed.items.forEach((item) => {
+        //   arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        // });
+
+        let res5 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+          body: "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
+        });
+        let data5 = await res5.json();
+
+        feed = await parser.parseString(data5.result);
+
+        feed.items.forEach((item) => {
+          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        });
+
+        const sortedArray = arr.sort((a, b) => b.time - a.time);
+
+        setNews(sortedArray);
+
+        // let data = await res.json();
+
+        // console.log(data2.result);
+        // let $ = cheerio.load(data.result);
+
+        // $(".table-fixed ", data.result)
+        //   .first()
+        //   .each(function () {
+        //     $(this)
+        //       .find(".nn")
+        //       .each(function () {
+        //         let url = $(this).find("a").attr("href");
+        //         if (url != undefined && !url.includes("bloomberg")) {
+        //           // arr.push(url);
+        //         }
+        //       });
+        //   });
+
+        // let $2 = cheerio.load(data.result);
+
+        // let arr2 = [];
+        // $2(".table-fixed ", data.result)
+        //   .last()
+        //   .each(function () {
+        //     $(this)
+        //       .find(".nn")
+        //       .each(function () {
+        //         let url = $(this).find("a").attr("href");
+        //         if (url != undefined && !url.includes("bloomberg")) {
+        //           arr2.push(url);
+        //         }
+        //       });
+        //   });
+
+        // setBlogs(arr2);
       } catch (error) {
         console.log(error);
       }
@@ -88,62 +152,42 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // async function search(article) {
-  //   let res = await fetch("/api/bookapi/", {
-  //     method: "POST",
-  //     mode: "cors",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify(`${article}`),
-  //   });
-  //   let data = await res.json();
-  //   let newData = data.result;
-
-  //   const article2 = article;
-  //   const array = article2.split("/");
-  //   var base = array[0] + "//" + array[2];
-
-  //   var mapObj = {
-  //     'href="/': `href="${base}/`,
-  //     'src="/': `src="${base}/`,
-  //     'srcset="/': `srcset="${base}/`,
-  //     base: `br`,
-  //     'id="bN015htcoyT__google-cache-hdr"': 'style="display:none !important;"',
-  //   };
-
-  //   var re = new RegExp(Object.keys(mapObj).join("|"), "gi");
-  //   newData = newData.replace(re, function (matched) {
-  //     return mapObj[matched];
-  //   });
-  //   console.log(newData);
-  // }
-
   async function getArticle(article) {
-    // for (let i = 0; i < id.length; i++) {
-    //   if (i == 0) {
-    //     article += id[i] + "//";
-    //   } else if (i != id.length - 1) {
-    //     article += id[i] + "/";
-    //   } else {
-    //     article += id[i];
-    //   }
-    // }
+    if (article.includes("yptr=yahoo") || article.includes("finance.yahoo.com")) {
+      router.push(article);
+    } else {
+      let res = await fetch("/api/bookapi/", {
+        method: "POST",
+        mode: "cors",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(`${article}`),
+      });
+      let data = await res.json();
+      let newData = data.result;
 
-    let res = await fetch("/api/bookapi/", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(`${article}`),
-    });
-    let data = await res.json();
-    let newData = data.result;
-    setNewData(newData);
+      const array = article.split("/");
+      var base = array[0] + "//" + array[2];
 
-    localStorage.setItem("newData", JSON.stringify(newData));
-    router.push(`/${article}`);
+      var mapObj = {
+        'href="/': `href="${base}/`,
+        'src="/': `src="${base}/`,
+        'srcset="/': `srcset="${base}/`,
+        base: `br`,
+        'id="bN015htcoyT__google-cache-hdr"': 'style="display:none !important;"',
+      };
+
+      var re = new RegExp(Object.keys(mapObj).join("|"), "gi");
+      newData = newData.replace(re, function (matched) {
+        return mapObj[matched];
+      });
+
+      setNewData(newData);
+
+      localStorage.setItem("newData", JSON.stringify(newData));
+      router.push(`/${article}`);
+    }
   }
   return (
     <div>
@@ -173,15 +217,12 @@ export default function Home() {
             </h1>
 
             <Ticker />
-            <div className="mt-10">News</div>
+
             {news
               ? news.map((article) => {
                   return (
-                    <div
-                      className="mb-10"
-                      onClick={() => getArticle(`https://www.ft.com${article.url}`)}
-                    >
-                      {article.title}
+                    <div className="" onClick={() => getArticle(`${article.url}`)}>
+                      <NewsItem title={article.title} link={article.url} time={article.time} />
                     </div>
                   );
                 })

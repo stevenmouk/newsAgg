@@ -1,0 +1,646 @@
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fCRc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fABc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fCBc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+1F00-1FFF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fBxc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0370-03FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fCxc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+    U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fChc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 300;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmSU5fBBc4AMP6lQ.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2)
+    format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2)
+    format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2)
+    format("woff2");
+  unicode-range: U+1F00-1FFF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2)
+    format("woff2");
+  unicode-range: U+0370-03FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2)
+    format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+    U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCRc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fABc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCBc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+1F00-1FFF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBxc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0370-03FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fCxc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+    U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fChc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmEU9fBBc4AMP6lQ.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCRc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfABc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCBc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+1F00-1FFF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBxc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0370-03FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfCxc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+    U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfChc4AMP6lbBP.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  src: url(https://fonts.gstatic.com/s/roboto/v18/KFOlCnqEu92Fr1MmWUlfBBc4AMP6lQ.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Google Material Icons";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlematerialicons/v130/Gw6kwdfw6UnXLJCcmafZyFRXb3BL9rvi0QZG3Sy7X00.woff2)
+    format("woff2");
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Kwp5eKQtGBlc.woff2)
+    format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Nwp5eKQtGBlc.woff2)
+    format("woff2");
+  unicode-range: U+0370-03FF;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Bwp5eKQtGBlc.woff2)
+    format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+    U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Awp5eKQtGBlc.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UaGrENHsxJlGDuGo1OIlL3Owp5eKQtG.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94Yt3CwZsPF4oxIs.woff2)
+    format("woff2");
+  unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94YtwCwZsPF4oxIs.woff2)
+    format("woff2");
+  unicode-range: U+0370-03FF;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94Yt8CwZsPF4oxIs.woff2)
+    format("woff2");
+  unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0,
+    U+1EA0-1EF9, U+20AB;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94Yt9CwZsPF4oxIs.woff2)
+    format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113,
+    U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Google Sans";
+  font-style: normal;
+  font-weight: 500;
+  src: url(https://fonts.gstatic.com/s/googlesans/v14/4UabrENHsxJlGDuGo1OIlLU94YtzCwZsPF4o.woff2)
+    format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F,
+    U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+.fAThCb {
+  width: 63%;
+}
+
+.ylTiXc {
+  display: flex;
+}
+
+.MXYcyf {
+  margin-top: 4px;
+}
+
+.e1AOyf {
+  max-width: 1024px;
+  padding: 24px 48px;
+  margin: auto;
+  position: relative;
+}
+
+.T4LgNb {
+  min-height: 100%;
+  height: auto;
+  position: relative;
+}
+
+.SSPGKf {
+  display: block;
+  overflow-y: hidden;
+  z-index: 1;
+}
+
+.zQTmif {
+  height: 100%;
+}
+
+.SSPGKf {
+  position: relative;
+  min-height: 100%;
+}
+
+.zQTmif {
+  height: auto;
+}
+
+.ccEnac {
+  background: white;
+  overflow: visible;
+}
+
+.IqBfM {
+  bottom: auto;
+  height: 100%;
+  right: auto;
+  width: auto;
+}
+
+.yY3Lee {
+  border-top: 1px solid #e8eaed;
+  display: block;
+  padding: 12px 0;
+}
+
+.nkXTJ {
+  display: flex;
+  -webkit-box-orient: horizontal;
+  box-orient: horizontal;
+  flex-direction: row;
+}
+
+.z4rs2b {
+  box-flex: 1;
+  flex-grow: 1;
+}
+
+.Z4idke {
+  border-radius: 8px;
+  object-fit: cover;
+  align-self: end;
+  margin-left: 16px;
+  height: 80px;
+  width: 120px;
+  border: 1px solid black;
+}
+
+.W8knGc {
+  letter-spacing: 0.025em;
+  font-family: Roboto, Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  line-height: 1rem;
+  color: #5f6368;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.Yfwt5 {
+  letter-spacing: 0.00625em;
+  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  color: #202124;
+  padding-top: 8px;
+}
+
+.sfyJob {
+  font-weight: 500;
+}
+
+.sfyJob:after {
+  content: "\0000a0\002022\0000a0";
+  padding-right: 8px;
+  padding-left: 6px;
+}
+
+.cCEUJe {
+  display: -webkit-inline-box;
+  display: inline-flex;
+}
+
+.Adak {
+  white-space: nowrap;
+}
+
+.hVmHve {
+  display: inline-block;
+  padding-left: 8px;
+  visibility: hidden;
+}
+
+/* .yY3Lee:hover .hVmHve {
+  visibility: visible;
+} */
+
+.VfPpkdxl07ObXxIAqeOWXEXeoYxtQd {
+  position: relative;
+  overflow: visible;
+}
+
+.hi8qbc {
+  margin-top: -5px;
+}
+
+.VfPpkdBz112cLgbsSe {
+  display: inline-block;
+  font-size: 24px;
+  width: 48px;
+  height: 48px;
+  padding: 12px;
+  position: relative;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  fill: currentColor;
+  color: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  user-select: none;
+  z-index: 0;
+  overflow: visible;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  will-change: transform, opacity;
+}
+
+.yHy1rc {
+  z-index: 0;
+}
+
+.rA8zGe {
+  padding: 0;
+  height: 24px;
+  width: 24px;
+}
+
+.EY8ABd-OWXEXe-TAWMXe {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  -webkit-user-select: none;
+}
+
+.VfPpkdBz112cLgbsSe .VfPpkdBz112cJh9lGc {
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.VfPpkdBz112c-LgbsSe .VfPpkdBz112cJh9lGc:before,
+.VfPpkdBz112cLgbsSe .VfPpkdBz112cJh9lGc:after {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+  content: "";
+}
+
+.VfPpkdBz112cLgbsSe .VfPpkdBz112cJh9lGc:before {
+  transition: opacity 15ms linear, background-color 15ms linear;
+  z-index: 1;
+  z-index: var(--mdc-ripple-z-index, 1);
+}
+
+.VfPpkd-Bz112cLgbsSe .VfPpkd-Bz112cJh9lGc:before,
+.VfPpkd-Bz112cLgbsSe .VfPpkd-Bz112cJh9lGc:after {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  background-color: var(--mdc-ripple-color, #000);
+}
+
+.yHy1rc .VfPpkd-Bz112cJh9lGc:before,
+.yHy1rc .VfPpkd-Bz112cJh9lGc:after {
+  z-index: -1;
+}
+
+.VfPpkdBz112cLgbsSe .VfPpkdBz112cJh9lGc:after {
+  z-index: 0;
+  z-index: var(--mdc-ripple-z-index, 0);
+}
+
+.VfPpkdBz112cLgbsSe:not(.VfPpkdksKsZdmWPk3d) .VfPpkdBz112cJh9lGc:after {
+  transition: opacity 0.15s linear;
+}
+
+/* .VfPpkdBz112cLgbsSe:hover .VfPpkdBz112cJh9lGc:before,
+.VfPpkdBz112cJh9lGc:before {
+  opacity: 0.04;
+  opacity: var(--mdc-ripple-hover-opacity, 0.04);
+} */
+
+.VfPpkdBz112cJ1UkfcLhBDec {
+  pointer-events: none;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  box-sizing: content-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+  display: none;
+}
+
+.VfPpkdBz112cLgbsSe .VfPpkdBz112cJ1UkfcLhBDec {
+  max-height: 48px;
+  max-width: 48px;
+}
+
+.mN1ivc .VfPpkdBz112cJ1UkfcLhBDec {
+  pointer-events: none;
+  border: 2px solid rgb(24, 90, 188);
+  border-radius: 6px;
+  box-sizing: content-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 100%;
+  width: 100%;
+}
+
+.VfPpkdBz112cJ1UkfcLhBDec:after {
+  content: "";
+  border: 2px solid transparent;
+  border-radius: 8px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: calc(100% + 4px);
+  width: calc(100% + 4px);
+}
+
+.mN1ivc .VfPpkdBz112cJ1UkfcLhBDec:after {
+  content: "";
+  border: 2px solid rgb(232, 240, 254);
+  border-radius: 8px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: calc(100% + 4px);
+  width: calc(100% + 4px);
+}
+
+.google-material-icons {
+  font-family: "Google Material Icons";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
+
+.YFTGP.m4RXFd {
+  font-size: 16px;
+}
