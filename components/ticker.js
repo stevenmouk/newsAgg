@@ -4,7 +4,7 @@ import protobuf from "protobufjs";
 
 const { Buffer } = require("buffer/");
 
-export default function Ticker() {
+export default function Ticker({ ticker, name }) {
   const [current, setCurrent] = useState(null);
   useEffect(() => {
     const ws = new WebSocket("wss://streamer.finance.yahoo.com");
@@ -16,25 +16,32 @@ export default function Ticker() {
       const Yaticker = root.lookupType("yaticker");
 
       ws.onopen = function open() {
-        console.log("opened");
+        // console.log("opened");
         ws.send(
           JSON.stringify({
-            subscribe: ["^IXIC"],
+            subscribe: [ticker],
           })
         );
       };
 
       ws.onclose = function close() {
-        console.log("closed");
+        // console.log("closed");
       };
 
       ws.onmessage = function incoming(data) {
-        console.log("message");
+        // console.log("message");
         const next = Yaticker.decode(new Buffer(data.data, "base64"));
 
         setCurrent(next);
+
+        localStorage.setItem(`${ticker}NewsTicker`, JSON.stringify(next));
       };
     });
+
+    if (current == null && localStorage.getItem(`${ticker}NewsTicker`) != null) {
+      setCurrent(JSON.parse(localStorage.getItem(`${ticker}NewsTicker`)));
+    } else if (current == null && localStorage.getItem(`${ticker}NewsTicker`) == null) {
+    }
   }, []);
 
   function commafy(num) {
@@ -81,7 +88,7 @@ export default function Ticker() {
         </div>
       </span>
       <div className={styles.VKMjFc}>
-        <div className={styles.pKBk1e}>Nasdaq</div>
+        <div className={styles.pKBk1e}>{name}</div>
         <div className={styles.wzUQBf}>
           <span className={styles.lh92}>
             <div jsname="ip75Cb" className={styles.s1OkXb}>

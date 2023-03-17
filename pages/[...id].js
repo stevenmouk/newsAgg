@@ -27,6 +27,7 @@ export default function Test() {
       document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML = "";
     }
   }, [pageData]);
+  //bg-[#FFF0E5]
 
   return (
     <div>
@@ -39,14 +40,13 @@ export default function Test() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className=" min-h-screen  flex flex-col bg-[#FFF0E5]">
+      <main className=" min-h-screen  flex flex-col bg-white">
         {pageData == null ? (
           <div>null</div>
         ) : (
           <div dangerouslySetInnerHTML={{ __html: pageData }} />
         )}
       </main>
-
       <footer></footer>
     </div>
   );

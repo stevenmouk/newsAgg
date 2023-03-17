@@ -10,8 +10,12 @@ export default function NewsItem({ title, link, time }) {
   } else if (link.includes("economist.com")) {
     url = "The Economist";
     src = "/images/ec.png";
-  } else if (link.includes("reutersagency.com")) {
+  } else if (link.includes("reuters.com")) {
     url = "Reuters";
+    src = "/images/reuters.jpeg";
+  } else if (link.includes("finance.yahoo.com")) {
+    url = "Yahoo Finance";
+    src = "/images/yahoo.png";
   } else {
     url = "The New York Times";
     src = "/images/nytimes.png";

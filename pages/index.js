@@ -10,6 +10,8 @@ import Router, { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import Ticker from "../components/ticker";
 import NewsItem from "../components/newsItem";
+import Script from "next/script";
+import Nav from "../components/nav";
 
 export default function Home() {
   const [news, setNews] = useState([]);
@@ -34,12 +36,6 @@ export default function Home() {
         let data = await res.json();
 
         let arr = [];
-        // let $3 = cheerio.load(data2.result);
-        // $3("#site-content .o-teaser__heading a", data2.result).each(function () {
-        //   if ($3(this)?.attr("href")?.includes("content")) {
-        //     arr.push({ url: $3(this).attr("href"), title: $3(this).text() });
-        //   }
-        // });
 
         let parser = new Parser();
 
@@ -75,18 +71,22 @@ export default function Home() {
           arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         });
 
-        // let res4 = await fetch("/api/financialtimes/", {
-        //   method: "POST",
-        //   mode: "cors",
-        //   body: "https://finance.yahoo.com/news/rss",
-        // });
-        // let data4 = await res4.json();
+        let res4 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+          body: "https://finance.yahoo.com/news/rss",
+        });
+        let data4 = await res4.json();
 
-        // feed = await parser.parseString(data4.result);
+        feed = await parser.parseString(data4.result);
 
-        // feed.items.forEach((item) => {
-        //   arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        // });
+        feed.items.forEach((item) => {
+          // console.log(item);
+
+          if (item.link.includes("finance.yahoo.com")) {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          }
+        });
 
         let res5 = await fetch("/api/financialtimes/", {
           method: "POST",
@@ -101,9 +101,92 @@ export default function Home() {
           arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         });
 
-        const sortedArray = arr.sort((a, b) => b.time - a.time);
+        let res6 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+          body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US",
+        });
+        let data6 = await res6.json();
 
-        setNews(sortedArray);
+        feed = await parser.parseString(data6.result);
+
+        feed.items.forEach((item) => {
+          // console.log(item);
+          let newUrl = "";
+          if (item.guid.toString().includes("_SAQA")) {
+            newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+
+            if (
+              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+              "h"
+            ) {
+              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+            } else {
+              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+            }
+          } else {
+            newUrl = atob(item.guid);
+            if (
+              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+              "h"
+            ) {
+              newUrl = newUrl
+                .toString()
+                .trim()
+                .replace(/\s/, "")
+                .substring(5, newUrl.length - 4);
+            } else {
+              newUrl = newUrl
+                .toString()
+                .trim()
+                .replace(/\s/, "")
+                .substring(4, newUrl.length - 4);
+            }
+          }
+
+          arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
+        });
+
+        let res7 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+          body: "https://www.ft.com/companies?format=rss",
+        });
+        let data7 = await res7.json();
+
+        feed = await parser.parseString(data7.result);
+
+        feed.items.forEach((item) => {
+          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        });
+        let res8 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+          body: "https://www.ft.com/us?format=rss",
+        });
+        let data8 = await res8.json();
+
+        feed = await parser.parseString(data8.result);
+
+        feed.items.forEach((item) => {
+          console.log(item);
+          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        });
+
+        let sortedArray = arr.sort((a, b) => b.time - a.time);
+
+        var final = sortedArray.reduce(function (p, c) {
+          if (
+            !p.some(function (el) {
+              return el.title === c.title;
+            })
+          )
+            p.push(c);
+
+          return p;
+        }, []);
+
+        setNews(final);
 
         // let data = await res.json();
 
@@ -189,6 +272,7 @@ export default function Home() {
       router.push(`/${article}`);
     }
   }
+
   return (
     <div>
       <Head>
@@ -200,23 +284,31 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
+      <Nav />
+
       <main className=" min-h-screen  flex flex-col ">
         <div className="w-full flex flex-col">
-          <div className="mt-3 pl-4  h-16 flex flex-row justify-between ">
+          {/* <div className="mt-3 pl-4  h-16 flex flex-row justify-between ">
             <Link href="/">
               <h1 className="font-serif text-3xl font-bold pl-8 sm:pl-0 hidden sm:inline">
-                Free Scholarly Articles
+                Bankrun News
               </h1>
             </Link>
             <div></div>
-          </div>
+          </div> */}
 
-          <div className="w-full min-h-screen flex items-center flex-col mt-5  ">
-            <h1 className="w-[80%] sm:w-full pt-20  pb-7  max-w-screen-md  text-4xl sm:text-5xl md:text-7xl font-extrabold sm:tracking-tight text-center">
-              Search over 30 million scholarly
-            </h1>
+          <div className="w-full min-h-screen flex items-center flex-col  mt-40 ">
+            <div className="flex flex-row space-x-5">
+              {/* <Ticker ticker="^GSPC" name="S&P 500" />
+              <Ticker ticker="^DJI" name="Dow 30" />
+              <Ticker ticker="^IXIC" name="Nasdaq" />
 
-            <Ticker />
+              <Ticker ticker="CL=F" name="Cruid Oil" /> */}
+            </div>
+
+            {/* <h1 className="w-[80%] sm:w-full pt-20  pb-7  max-w-screen-md  text-4xl sm:text-5xl md:text-7xl font-extrabold sm:tracking-tight text-center mb-10">
+              Free Finance News Aggregator
+            </h1> */}
 
             {news
               ? news.map((article) => {
@@ -228,7 +320,6 @@ export default function Home() {
                 })
               : ""}
 
-            <div>Blogs</div>
             {/* {blogs
               ? blogs.map((article) => {
                   return (
@@ -244,6 +335,7 @@ export default function Home() {
               : ""} */}
 
             {/* <div dangerouslySetInnerHTML={{ __html: data }} /> */}
+
             <div className="">
               <TradingViewWidget />
             </div>
