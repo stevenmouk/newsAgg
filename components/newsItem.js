@@ -4,21 +4,29 @@ import styles from "/styles/news.module.css";
 export default function NewsItem({ title, link, time }) {
   let src = "";
   let url = "";
-  if (link.includes("ft.com")) {
-    url = "Financial Times";
-    src = "/images/njjn.jpeg";
-  } else if (link.includes("economist.com")) {
-    url = "The Economist";
-    src = "/images/ec.png";
-  } else if (link.includes("reuters.com")) {
-    url = "Reuters";
-    src = "/images/reuters.jpeg";
-  } else if (link.includes("finance.yahoo.com")) {
-    url = "Yahoo Finance";
-    src = "/images/yahoo.png";
-  } else {
-    url = "The New York Times";
-    src = "/images/nytimes.png";
+  if (link != undefined) {
+    if (link.includes("ft.com")) {
+      url = "Financial Times";
+      src = "/images/njjn.jpeg";
+    } else if (link.includes("economist.com")) {
+      url = "The Economist";
+      src = "/images/ec.png";
+    } else if (link.includes("reuters.com") || link.includes("reutersagency.com")) {
+      url = "Reuters";
+      src = "/images/reuters.jpeg";
+    } else if (link.includes("finance.yahoo.com")) {
+      url = "Yahoo Finance";
+      src = "/images/yahoo.png";
+    } else if (link.includes("foxbusiness.com")) {
+      url = "Fox Business";
+      src = "/images/fox.jpeg";
+    } else if (link.includes("nytimes.com")) {
+      url = "The New York Times";
+      src = "/images/nytimes.png";
+    } else if (link.includes("marketwatch.com")) {
+      url = "MarketWatch";
+      src = "/images/mw.jpeg";
+    }
   }
 
   let month = time.toLocaleString("default", { month: "short" });
