@@ -411,7 +411,7 @@ export default function Home() {
         feed = await parser.parseString(data22.result);
 
         feed.items.forEach((item) => {
-          console.log(item);
+          // console.log(item);
 
           arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         });
@@ -430,6 +430,16 @@ export default function Home() {
         }, []);
 
         setNews(final);
+
+        // let newFinal = [];
+
+        // for (let i = 0; i < final.length; i++) {
+        //   if (!final[i].url.toString().includes("reuters.com")) {
+        //     newFinal.push(final[i]);
+        //   }
+        // }
+
+        // setNews(newFinal);
 
         // let data = await res.json();
 
@@ -545,13 +555,13 @@ export default function Home() {
           </div> */}
 
           <div className="w-full min-h-screen flex items-center flex-col  mt-10 ">
-            <div className="flex flex-row space-x-5">
+            {/* <div className="flex flex-row space-x-5">
               <Ticker ticker="^GSPC" name="S&P 500" />
               <Ticker ticker="^DJI" name="Dow 30" />
               <Ticker ticker="^IXIC" name="Nasdaq" />
 
               <Ticker ticker="CL=F" name="Cruid Oil" />
-            </div>
+            </div> */}
 
             <h1 className="w-[80%] sm:w-full pt-10  pb-3  max-w-screen-md  text-4xl sm:text-5xl md:text-5xl font-extrabold sm:tracking-tight text-center mb-10">
               Live News Feed:
