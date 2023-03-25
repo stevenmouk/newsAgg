@@ -13,6 +13,7 @@ import NewsItem from "../components/newsItem";
 import Script from "next/script";
 
 import Nav2 from "../components/nav2";
+import Loading from "../components/loading";
 
 export default function Home() {
   const [news, setNews] = useState([]);
@@ -20,401 +21,440 @@ export default function Home() {
   const [data, setData] = useState();
   const [newData, setNewData] = useState(null);
   const router = useRouter();
+  const [finance, setFinance] = useState(true);
+  const [reuters, setReuters] = useState(true);
+  const [fox, setFox] = useState(true);
+  const [nytimes, setNyTimes] = useState(true);
+  const [fntimes, setFnTimes] = useState(true);
+  const [econ, setEcon] = useState(true);
+  const [market, setMarket] = useState(true);
+  const [final, setFinal] = useState([]);
+  const [isload, setisload] = useState(false);
 
   useEffect(() => {
     async function x() {
       try {
+        setisload(true);
         // let res = await fetch("/api/newsArticleApi/", {
         //   method: "POST",
         //   mode: "cors",
         // });
 
-        let res = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://www.ft.com/technology?format=rss",
-        });
-        let data = await res.json();
-
         let arr = [];
 
         let parser = new Parser();
+        let feed;
 
-        let feed = await parser.parseString(data.result);
+        if (fntimes == true) {
+          let res = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://www.ft.com/technology?format=rss",
+          });
+          let data = await res.json();
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed = await parser.parseString(data.result);
 
-        let res2 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://www.economist.com/finance-and-economics/rss.xml",
-        });
-        let data2 = await res2.json();
-
-        feed = await parser.parseString(data2.result);
-
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
-
-        let res3 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
-        });
-        let data3 = await res3.json();
-
-        feed = await parser.parseString(data3.result);
-
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
-
-        let res4 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://finance.yahoo.com/news/rss",
-        });
-        let data4 = await res4.json();
-
-        feed = await parser.parseString(data4.result);
-
-        feed.items.forEach((item) => {
-          // console.log(item);
-
-          if (item.link.includes("finance.yahoo.com")) {
+          feed.items.forEach((item) => {
             arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-          }
-        });
+          });
+        }
 
-        let res5 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
-        });
-        let data5 = await res5.json();
+        if (econ == true) {
+          let res2 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://www.economist.com/finance-and-economics/rss.xml",
+          });
+          let data2 = await res2.json();
 
-        feed = await parser.parseString(data5.result);
+          feed = await parser.parseString(data2.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-        let res6 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/business&ceid=US:en&hl=en-US&gl=US",
-        });
-        let data6 = await res6.json();
+        if (nytimes == true) {
+          let res3 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
+          });
+          let data3 = await res3.json();
 
-        feed = await parser.parseString(data6.result);
+          feed = await parser.parseString(data3.result);
 
-        feed.items.forEach((item) => {
-          let newUrl = "";
-          if (item.guid.toString().includes("_SAQA")) {
-            newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-            if (
-              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-              "h"
-            ) {
-              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
-            } else {
-              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+        if (finance == true) {
+          let res4 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://finance.yahoo.com/news/rss",
+          });
+          let data4 = await res4.json();
+
+          feed = await parser.parseString(data4.result);
+
+          feed.items.forEach((item) => {
+            // console.log(item);
+
+            if (item.link.includes("finance.yahoo.com")) {
+              arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
             }
-          } else {
-            newUrl = atob(item.guid);
-            if (
-              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-              "h"
-            ) {
-              newUrl = newUrl
-                .toString()
-                .trim()
-                .replace(/\s/, "")
-                .substring(5, newUrl.length - 4);
+          });
+        }
+
+        if (reuters == true) {
+          let res5 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
+          });
+          let data5 = await res5.json();
+
+          feed = await parser.parseString(data5.result);
+
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
+
+        if (reuters == true) {
+          let res6 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/business&ceid=US:en&hl=en-US&gl=US",
+          });
+          let data6 = await res6.json();
+
+          feed = await parser.parseString(data6.result);
+
+          feed.items.forEach((item) => {
+            let newUrl = "";
+            if (item.guid.toString().includes("_SAQA")) {
+              newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+
+              if (
+                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+                "h"
+              ) {
+                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+              } else {
+                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+              }
             } else {
-              newUrl = newUrl
-                .toString()
-                .trim()
-                .replace(/\s/, "")
-                .substring(4, newUrl.length - 4);
+              newUrl = atob(item.guid);
+              if (
+                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+                "h"
+              ) {
+                newUrl = newUrl
+                  .toString()
+                  .trim()
+                  .replace(/\s/, "")
+                  .substring(5, newUrl.length - 4);
+              } else {
+                newUrl = newUrl
+                  .toString()
+                  .trim()
+                  .replace(/\s/, "")
+                  .substring(4, newUrl.length - 4);
+              }
             }
-          }
 
-          arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
-        });
+            arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-        let res7 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://www.ft.com/companies?format=rss",
-        });
-        let data7 = await res7.json();
+        if (fntimes == true) {
+          let res7 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://www.ft.com/companies?format=rss",
+          });
+          let data7 = await res7.json();
 
-        feed = await parser.parseString(data7.result);
+          feed = await parser.parseString(data7.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
-        let res8 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://www.ft.com/us?format=rss",
-        });
-        let data8 = await res8.json();
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+          let res8 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://www.ft.com/us?format=rss",
+          });
+          let data8 = await res8.json();
 
-        feed = await parser.parseString(data8.result);
+          feed = await parser.parseString(data8.result);
 
-        feed.items.forEach((item) => {
-          // console.log(item);
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            // console.log(item);
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-        let res9 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
-        });
-        let data9 = await res9.json();
+        if (nytimes == true) {
+          let res9 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
+          });
+          let data9 = await res9.json();
 
-        feed = await parser.parseString(data9.result);
+          feed = await parser.parseString(data9.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-        let res10 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://rss.nytimes.com/services/xml/rss/nyt/economy.xml",
-        });
-        let data10 = await res10.json();
+        if (nytimes == true) {
+          let res10 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://rss.nytimes.com/services/xml/rss/nyt/economy.xml",
+          });
+          let data10 = await res10.json();
 
-        feed = await parser.parseString(data10.result);
+          feed = await parser.parseString(data10.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-        let res11 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://rss.nytimes.com/services/xml/rss/nyt/yourmoney.xml",
-        });
-        let data11 = await res11.json();
+        if (nytimes == true) {
+          let res11 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://rss.nytimes.com/services/xml/rss/nyt/yourmoney.xml",
+          });
+          let data11 = await res11.json();
 
-        feed = await parser.parseString(data11.result);
+          feed = await parser.parseString(data11.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-        let res12 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://moxie.foxbusiness.com/google-publisher/latest.xml",
-        });
-        let data12 = await res12.json();
+        if (fox == true) {
+          let res12 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://moxie.foxbusiness.com/google-publisher/latest.xml",
+          });
+          let data12 = await res12.json();
 
-        feed = await parser.parseString(data12.result);
+          feed = await parser.parseString(data12.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
+          });
 
-        let res13 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://moxie.foxbusiness.com/google-publisher/economy.xml",
-        });
-        let data13 = await res13.json();
+          let res13 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://moxie.foxbusiness.com/google-publisher/economy.xml",
+          });
+          let data13 = await res13.json();
 
-        feed = await parser.parseString(data13.result);
+          feed = await parser.parseString(data13.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
+          });
 
-        let res14 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://moxie.foxbusiness.com/google-publisher/markets.xml",
-        });
-        let data14 = await res14.json();
+          let res14 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://moxie.foxbusiness.com/google-publisher/markets.xml",
+          });
+          let data14 = await res14.json();
 
-        feed = await parser.parseString(data14.result);
+          feed = await parser.parseString(data14.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
+          });
 
-        let res15 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://moxie.foxbusiness.com/google-publisher/personal-finance.xml",
-        });
-        let data15 = await res15.json();
+          let res15 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://moxie.foxbusiness.com/google-publisher/personal-finance.xml",
+          });
+          let data15 = await res15.json();
 
-        feed = await parser.parseString(data15.result);
+          feed = await parser.parseString(data15.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
+          });
 
-        let res16 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://moxie.foxbusiness.com/google-publisher/technology.xml",
-        });
-        let data16 = await res16.json();
+          let res16 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://moxie.foxbusiness.com/google-publisher/technology.xml",
+          });
+          let data16 = await res16.json();
 
-        feed = await parser.parseString(data16.result);
+          feed = await parser.parseString(data16.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
+          });
 
-        let res17 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://moxie.foxbusiness.com/google-publisher/small-business.xml",
-        });
-        let data17 = await res17.json();
+          let res17 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://moxie.foxbusiness.com/google-publisher/small-business.xml",
+          });
+          let data17 = await res17.json();
 
-        feed = await parser.parseString(data17.result);
+          feed = await parser.parseString(data17.result);
 
-        let res18 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://moxie.foxbusiness.com/google-publisher/real-estate.xml",
-        });
-        let data18 = await res18.json();
+          let res18 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://moxie.foxbusiness.com/google-publisher/real-estate.xml",
+          });
+          let data18 = await res18.json();
 
-        feed = await parser.parseString(data18.result);
+          feed = await parser.parseString(data18.result);
 
-        feed.items.forEach((item) => {
-          arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
-        });
+          feed.items.forEach((item) => {
+            arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-        let res19 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/technology&ceid=US:en&hl=en-US&gl=US",
-        });
-        let data19 = await res19.json();
+        if (reuters == true) {
+          let res19 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/technology&ceid=US:en&hl=en-US&gl=US",
+          });
+          let data19 = await res19.json();
 
-        feed = await parser.parseString(data19.result);
+          feed = await parser.parseString(data19.result);
 
-        feed.items.forEach((item) => {
-          let newUrl = "";
-          if (item.guid.toString().includes("_SAQA")) {
-            newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+          feed.items.forEach((item) => {
+            let newUrl = "";
+            if (item.guid.toString().includes("_SAQA")) {
+              newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
 
-            if (
-              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-              "h"
-            ) {
-              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+              if (
+                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+                "h"
+              ) {
+                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+              } else {
+                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+              }
             } else {
-              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+              newUrl = atob(item.guid);
+              if (
+                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+                "h"
+              ) {
+                newUrl = newUrl
+                  .toString()
+                  .trim()
+                  .replace(/\s/, "")
+                  .substring(5, newUrl.length - 4);
+              } else {
+                newUrl = newUrl
+                  .toString()
+                  .trim()
+                  .replace(/\s/, "")
+                  .substring(4, newUrl.length - 4);
+              }
             }
-          } else {
-            newUrl = atob(item.guid);
-            if (
-              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-              "h"
-            ) {
-              newUrl = newUrl
-                .toString()
-                .trim()
-                .replace(/\s/, "")
-                .substring(5, newUrl.length - 4);
+
+            arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
+
+        if (reuters == true) {
+          let res20 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/markets&ceid=US:en&hl=en-US&gl=US",
+          });
+          let data20 = await res20.json();
+
+          feed = await parser.parseString(data20.result);
+
+          feed.items.forEach((item) => {
+            let newUrl = "";
+            if (item.guid.toString().includes("_SAQA")) {
+              newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+
+              if (
+                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+                "h"
+              ) {
+                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+              } else {
+                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+              }
             } else {
-              newUrl = newUrl
-                .toString()
-                .trim()
-                .replace(/\s/, "")
-                .substring(4, newUrl.length - 4);
+              newUrl = atob(item.guid);
+              if (
+                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+                "h"
+              ) {
+                newUrl = newUrl
+                  .toString()
+                  .trim()
+                  .replace(/\s/, "")
+                  .substring(5, newUrl.length - 4);
+              } else {
+                newUrl = newUrl
+                  .toString()
+                  .trim()
+                  .replace(/\s/, "")
+                  .substring(4, newUrl.length - 4);
+              }
             }
-          }
 
-          arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
-        });
-        let res20 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/markets&ceid=US:en&hl=en-US&gl=US",
-        });
-        let data20 = await res20.json();
+            arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
+        if (market == true) {
+          let res21 = await fetch("/api/financialtimes/", {
+            method: "POST",
+            mode: "cors",
+            body: "http://feeds.marketwatch.com/marketwatch/bulletins",
+          });
+          let data21 = await res21.json();
 
-        feed = await parser.parseString(data20.result);
+          feed = await parser.parseString(data21.result);
 
-        feed.items.forEach((item) => {
-          let newUrl = "";
-          if (item.guid.toString().includes("_SAQA")) {
-            newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+          feed.items.forEach((item) => {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          });
+        }
 
-            if (
-              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-              "h"
-            ) {
-              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
-            } else {
-              newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
-            }
-          } else {
-            newUrl = atob(item.guid);
-            if (
-              newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-              "h"
-            ) {
-              newUrl = newUrl
-                .toString()
-                .trim()
-                .replace(/\s/, "")
-                .substring(5, newUrl.length - 4);
-            } else {
-              newUrl = newUrl
-                .toString()
-                .trim()
-                .replace(/\s/, "")
-                .substring(4, newUrl.length - 4);
-            }
-          }
+        // let res22 = await fetch("/api/financialtimes/", {
+        //   method: "POST",
+        //   mode: "cors",
+        //   body: "https://www.bing.com/news/search?q=reuters.com&format=rss",
+        // });
+        // let data22 = await res22.json();
 
-          arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
-        });
+        // feed = await parser.parseString(data22.result);
 
-        let res21 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "http://feeds.marketwatch.com/marketwatch/bulletins",
-        });
-        let data21 = await res21.json();
+        // feed.items.forEach((item) => {
+        //   // console.log(item);
 
-        feed = await parser.parseString(data21.result);
-
-        feed.items.forEach((item) => {
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
-
-        let res22 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://www.bing.com/news/search?q=reuters.com&format=rss",
-        });
-        let data22 = await res22.json();
-
-        feed = await parser.parseString(data22.result);
-
-        feed.items.forEach((item) => {
-          // console.log(item);
-
-          arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        });
+        //   arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        // });
 
         let sortedArray = arr.sort((a, b) => b.time - a.time);
 
@@ -431,51 +471,8 @@ export default function Home() {
 
         setNews(final);
 
-        // let newFinal = [];
-
-        // for (let i = 0; i < final.length; i++) {
-        //   if (!final[i].url.toString().includes("reuters.com")) {
-        //     newFinal.push(final[i]);
-        //   }
-        // }
-
-        // setNews(newFinal);
-
-        // let data = await res.json();
-
-        // console.log(data2.result);
-        // let $ = cheerio.load(data.result);
-
-        // $(".table-fixed ", data.result)
-        //   .first()
-        //   .each(function () {
-        //     $(this)
-        //       .find(".nn")
-        //       .each(function () {
-        //         let url = $(this).find("a").attr("href");
-        //         if (url != undefined && !url.includes("bloomberg")) {
-        //           // arr.push(url);
-        //         }
-        //       });
-        //   });
-
-        // let $2 = cheerio.load(data.result);
-
-        // let arr2 = [];
-        // $2(".table-fixed ", data.result)
-        //   .last()
-        //   .each(function () {
-        //     $(this)
-        //       .find(".nn")
-        //       .each(function () {
-        //         let url = $(this).find("a").attr("href");
-        //         if (url != undefined && !url.includes("bloomberg")) {
-        //           arr2.push(url);
-        //         }
-        //       });
-        //   });
-
-        // setBlogs(arr2);
+        setFinal(final);
+        setisload(false);
       } catch (error) {
         console.log(error);
       }
@@ -486,7 +483,7 @@ export default function Home() {
     }, 60000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [finance, reuters, fox, nytimes, fntimes, econ, market]);
 
   async function getArticle(article) {
     if (
@@ -543,6 +540,100 @@ export default function Home() {
 
       <Nav2 />
 
+      <div className="h-fit w-fit absolute rounded-lg bg-black right-10 top-[300px] p-4 flex flex-col ">
+        <div className="switch">
+          <input
+            type="checkbox"
+            className="input"
+            id="box1"
+            defaultChecked
+            onChange={() => setFinance(!finance)}
+          />
+          <label htmlFor="box1" className="slider"></label>
+          <label htmlFor="box1" className="text-white text-lg ml-1 hover:cursor-pointer">
+            Yahoo
+          </label>
+        </div>
+        <div className="switch">
+          <input
+            className="input"
+            type="checkbox"
+            id="box2"
+            defaultChecked
+            onChange={() => setReuters(!reuters)}
+          />
+          <label htmlFor="box2" className="slider"></label>
+          <label htmlFor="box2" className="text-white text-lg ml-1 hover:cursor-pointer">
+            Reuters
+          </label>
+        </div>
+        <div className="switch">
+          <input
+            type="checkbox"
+            className="input"
+            id="box3"
+            defaultChecked
+            onChange={() => setFox(!fox)}
+          />
+          <label htmlFor="box3" className="slider"></label>
+          <label htmlFor="box3" className="text-white text-lg ml-1 hover:cursor-pointer">
+            Fox Business
+          </label>
+        </div>
+        <div className="switch">
+          <input
+            type="checkbox"
+            className="input"
+            id="box4"
+            defaultChecked
+            onChange={() => setNyTimes(!nytimes)}
+          />
+          <label htmlFor="box4" className="slider"></label>
+          <label htmlFor="box4" className="text-white text-lg ml-1 hover:cursor-pointer">
+            New York Times
+          </label>
+        </div>
+        <div className="switch">
+          <input
+            type="checkbox"
+            className="input"
+            id="box5"
+            defaultChecked
+            onChange={() => setFnTimes(!fntimes)}
+          />
+          <label htmlFor="box5" className="slider"></label>
+          <label htmlFor="box5" className="text-white text-lg ml-1 hover:cursor-pointer">
+            Financial Times
+          </label>
+        </div>
+        <div className="switch">
+          <input
+            type="checkbox"
+            className="input"
+            id="box6"
+            defaultChecked
+            onChange={() => setEcon(!econ)}
+          />
+          <label htmlFor="box6" className="slider"></label>
+          <label htmlFor="box6" className="text-white text-lg ml-1 hover:cursor-pointer">
+            The Economist
+          </label>
+        </div>
+        <div className="switch">
+          <input
+            type="checkbox"
+            className="input"
+            id="box7"
+            defaultChecked
+            onChange={() => setMarket(!market)}
+          />
+          <label htmlFor="box7" className="slider"></label>
+          <label htmlFor="box7" className="text-white text-lg ml-1 hover:cursor-pointer">
+            Market Watch
+          </label>
+        </div>
+      </div>
+
       <main className=" min-h-screen  flex flex-col ">
         <div className="w-full flex flex-col">
           {/* <div className="mt-3 pl-4  h-16 flex flex-row justify-between ">
@@ -567,7 +658,7 @@ export default function Home() {
               Live News Feed:
             </h1>
 
-            {news
+            {news && !isload
               ? news.map((article) => {
                   return (
                     <div className="" onClick={() => getArticle(`${article.url}`)}>
@@ -593,11 +684,13 @@ export default function Home() {
 
             {/* <div dangerouslySetInnerHTML={{ __html: data }} /> */}
 
-            <div className="">
+            {/* <div className="">
               <TradingViewWidget />
-            </div>
+            </div> */}
           </div>
         </div>
+
+        {isload ? <Loading /> : <div></div>}
 
         <div className=" flex flex-col items-center justify-center mt-[50px]">
           <div className="sm:w-[60%] w-[90%]  flex flex-col items-center justify-center text-black font-serif  mb-28">
