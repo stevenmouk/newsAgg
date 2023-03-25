@@ -14,6 +14,7 @@ import Script from "next/script";
 
 import Nav2 from "../components/nav2";
 import Loading from "../components/loading";
+import Nav3 from "../components/nav3";
 
 export default function Home() {
   const [news, setNews] = useState([]);
@@ -538,9 +539,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Nav2 />
+      <Nav3 />
 
-      <div className="h-fit w-fit absolute rounded-lg bg-black right-10 top-[300px] p-4 flex flex-col ">
+      {/* <div className="h-fit w-fit relative rounded-lg bg-black right-10 top-[300px] p-4 flex flex-col ">
         <div className="switch">
           <input
             type="checkbox"
@@ -632,7 +633,7 @@ export default function Home() {
             Market Watch
           </label>
         </div>
-      </div>
+      </div> */}
 
       <main className=" min-h-screen  flex flex-col ">
         <div className="w-full flex flex-col">
@@ -645,7 +646,7 @@ export default function Home() {
             <div></div>
           </div> */}
 
-          <div className="w-full min-h-screen flex items-center flex-col  mt-10 ">
+          <div className="w-full min-h-screen flex items-center flex-col  ">
             {/* <div className="flex flex-row space-x-5">
               <Ticker ticker="^GSPC" name="S&P 500" />
               <Ticker ticker="^DJI" name="Dow 30" />
@@ -654,11 +655,11 @@ export default function Home() {
               <Ticker ticker="CL=F" name="Cruid Oil" />
             </div> */}
 
-            <h1 className="w-[80%] sm:w-full pt-10  pb-3  max-w-screen-md  text-4xl sm:text-5xl md:text-5xl font-extrabold sm:tracking-tight text-center mb-10">
+            {/* <h1 className="w-[80%] sm:w-full pt-10  pb-3  max-w-screen-md  text-4xl sm:text-5xl md:text-5xl font-extrabold sm:tracking-tight text-center mb-10">
               Live News Feed:
-            </h1>
+            </h1> */}
 
-            {news && !isload
+            {news
               ? news.map((article) => {
                   return (
                     <div className="" onClick={() => getArticle(`${article.url}`)}>
@@ -690,7 +691,7 @@ export default function Home() {
           </div>
         </div>
 
-        {isload ? <Loading /> : <div></div>}
+        {/* {isload ? <Loading /> : <div></div>} */}
 
         <div className=" flex flex-col items-center justify-center mt-[50px]">
           <div className="sm:w-[60%] w-[90%]  flex flex-col items-center justify-center text-black font-serif  mb-28">

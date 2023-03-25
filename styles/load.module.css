@@ -1,7 +1,7 @@
 .load {
   position: absolute;
   left: 50%;
-  top: 50%;
+  top: 1000px;
   transform: translate(-50%, -50%);
   color: rgb(200, 39, 3);
 }
