@@ -37,12 +37,12 @@ export default function NewsItem({ title, link, time }) {
   return (
     <div className="w-full flex items-center justify-center">
       <div
-        className={`${styles.yY3Lee}    w-[640px]`}
+        className={`${styles.yY3Lee}  w-[350px] sm:w-[500px] md:w-[640px]`}
         jscontroller="ZpnVYd"
         data-article-source-name="The New York Times"
       >
         <div className={styles.nkXTJ}>
-          <div className={`${styles.z4rs2b} w-[504px]`}>
+          <div className={`${styles.z4rs2b} w-[200px]`}>
             <div className="hover:cursor-pointer">
               <div className={styles.Tfehrf}>
                 <div className={`${styles.nkXTJ} ${styles.W8knGc}`} jsname="GvmPSb">
@@ -116,7 +116,12 @@ export default function NewsItem({ title, link, time }) {
               jslog="106424;ved:0CAUQuL8GahcKEwiAovGQydT9AhUAAAAAHQAAAAAQAg;track:click"
               href="https://www.nytimes.com/2023/03/11/technology/silicon-valley-bank-crypto-investing.html"
             >
-              <img alt="" className={styles.Z4idke} src={src} data-iml="2145.4000000953674" />
+              <img
+                alt=""
+                className={`${styles.Z4idke} w-[60px] h-[40px] sm:w-[120px] sm:h-[80px]`}
+                src={src}
+                data-iml="2145.4000000953674"
+              />
             </a>
           </div>
         </div>

@@ -406,8 +406,7 @@
   object-fit: cover;
   align-self: end;
   margin-left: 16px;
-  height: 80px;
-  width: 120px;
+
   border: 1px solid black;
 }
 
