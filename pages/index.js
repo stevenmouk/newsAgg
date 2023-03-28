@@ -35,7 +35,12 @@ export default function Home() {
   useEffect(() => {
     async function x() {
       try {
-        setisload(true);
+        if (JSON.parse(localStorage.getItem("newsArr")) != null) {
+          setNews(JSON.parse(localStorage.getItem("newsArr")));
+        } else {
+          setisload(true);
+        }
+
         // let res = await fetch("/api/newsArticleApi/", {
         //   method: "POST",
         //   mode: "cors",
@@ -471,6 +476,8 @@ export default function Home() {
         }, []);
 
         setNews(final);
+
+        localStorage.setItem("newsArr", JSON.stringify(final));
 
         setFinal(final);
         setisload(false);

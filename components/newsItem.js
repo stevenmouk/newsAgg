@@ -29,6 +29,7 @@ export default function NewsItem({ title, link, time }) {
     }
   }
 
+  time = new Date(time);
   let month = time.toLocaleString("default", { month: "short" });
   let day = time.getDate();
   let year = time.getFullYear();
