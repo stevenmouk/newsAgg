@@ -659,7 +659,7 @@ export default function Home() {
               Live News Feed:
             </h1> */}
 
-            {news && !isload
+            {news
               ? news.map((article) => {
                   return (
                     <div className="" onClick={() => getArticle(`${article.url}`)}>
@@ -691,7 +691,7 @@ export default function Home() {
           </div>
         </div>
 
-        {isload ? <Loading /> : <div></div>}
+        {/* {isload ? <Loading /> : <div></div>} */}
 
         <div className=" flex flex-col items-center justify-center mt-[50px]">
           <div className="sm:w-[60%] w-[90%]  flex flex-col items-center justify-center text-black font-serif  mb-28">
