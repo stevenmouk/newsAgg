@@ -1,9 +1,13 @@
 export default async function handler(req, res) {
   try {
     let response;
-    let query = req.body.split("?")[0];
+    let query = "";
 
-    console.log(query);
+    if (req.body.toString().includes("marketwatch.com")) {
+      query = req.body.toString();
+    } else {
+      query = req.body.split("?")[0];
+    }
 
     if (query.includes("economist.com")) {
       response = await fetch(query, {

@@ -32,6 +32,16 @@ export default function Home() {
   const [final, setFinal] = useState([]);
   const [isload, setisload] = useState(false);
 
+  // const getData = async () => {
+  //   try {
+  //     const res = await axios.get("https://geolocation-db.com/json/");
+  //     console.log(res.data);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+  // getData();
+
   useEffect(() => {
     async function x() {
       try {
@@ -66,20 +76,20 @@ export default function Home() {
           });
         }
 
-        if (econ == true) {
-          let res2 = await fetch("/api/financialtimes/", {
-            method: "POST",
-            mode: "cors",
-            body: "https://www.economist.com/finance-and-economics/rss.xml",
-          });
-          let data2 = await res2.json();
+        // if (econ == true) {
+        //   let res2 = await fetch("/api/financialtimes/", {
+        //     method: "POST",
+        //     mode: "cors",
+        //     body: "https://www.economist.com/finance-and-economics/rss.xml",
+        //   });
+        //   let data2 = await res2.json();
 
-          feed = await parser.parseString(data2.result);
+        //   feed = await parser.parseString(data2.result);
 
-          feed.items.forEach((item) => {
-            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-          });
-        }
+        //   feed.items.forEach((item) => {
+        //     arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        //   });
+        // }
 
         if (nytimes == true) {
           let res3 = await fetch("/api/financialtimes/", {
@@ -432,20 +442,24 @@ export default function Home() {
             arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
           });
         }
-        if (market == true) {
-          let res21 = await fetch("/api/financialtimes/", {
-            method: "POST",
-            mode: "cors",
-            body: "http://feeds.marketwatch.com/marketwatch/bulletins",
-          });
-          let data21 = await res21.json();
+        // if (market == true) {
+        //   let res21 = await fetch("/api/financialtimes/", {
+        //     method: "POST",
+        //     mode: "cors",
+        //     body: "http://feeds.marketwatch.com/marketwatch/bulletins",
+        //   });
+        //   let data21 = await res21.json();
 
-          feed = await parser.parseString(data21.result);
+        //   feed = await parser.parseString(data21.result);
 
-          feed.items.forEach((item) => {
-            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-          });
-        }
+        //   feed.items.forEach((item) => {
+        //     const regex = /https?:\/\/[\w-]+(\.[\w-]+)+([/?#][\w\-\.\?\,\/\+&=%!:#\(\)]*)?/;
+        //     let url = item.link.toString().match(regex)[0];
+        //     arr.push({ url: url, title: item.title, time: new Date(item.pubDate) });
+
+        //     console.log(url);
+        //   });
+        // }
 
         // let res22 = await fetch("/api/financialtimes/", {
         //   method: "POST",
