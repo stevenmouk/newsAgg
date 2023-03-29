@@ -125,67 +125,67 @@ export default function Home() {
           });
         }
 
-        if (reuters == true) {
-          let res5 = await fetch("/api/financialtimes/", {
-            method: "POST",
-            mode: "cors",
-            body: "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
-          });
-          let data5 = await res5.json();
+        // if (reuters == true) {
+        //   let res5 = await fetch("/api/financialtimes/", {
+        //     method: "POST",
+        //     mode: "cors",
+        //     body: "https://www.reutersagency.com/feed/?best-topics=business-finance&post_type=best",
+        //   });
+        //   let data5 = await res5.json();
 
-          feed = await parser.parseString(data5.result);
+        //   feed = await parser.parseString(data5.result);
 
-          feed.items.forEach((item) => {
-            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-          });
-        }
+        //   feed.items.forEach((item) => {
+        //     arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        //   });
+        // }
 
-        if (reuters == true) {
-          let res6 = await fetch("/api/financialtimes/", {
-            method: "POST",
-            mode: "cors",
-            body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/business&ceid=US:en&hl=en-US&gl=US",
-          });
-          let data6 = await res6.json();
+        // if (reuters == true) {
+        //   let res6 = await fetch("/api/financialtimes/", {
+        //     method: "POST",
+        //     mode: "cors",
+        //     body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/business&ceid=US:en&hl=en-US&gl=US",
+        //   });
+        //   let data6 = await res6.json();
 
-          feed = await parser.parseString(data6.result);
+        //   feed = await parser.parseString(data6.result);
 
-          feed.items.forEach((item) => {
-            let newUrl = "";
-            if (item.guid.toString().includes("_SAQA")) {
-              newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+        //   feed.items.forEach((item) => {
+        //     let newUrl = "";
+        //     if (item.guid.toString().includes("_SAQA")) {
+        //       newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
 
-              if (
-                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-                "h"
-              ) {
-                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
-              } else {
-                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
-              }
-            } else {
-              newUrl = atob(item.guid);
-              if (
-                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-                "h"
-              ) {
-                newUrl = newUrl
-                  .toString()
-                  .trim()
-                  .replace(/\s/, "")
-                  .substring(5, newUrl.length - 4);
-              } else {
-                newUrl = newUrl
-                  .toString()
-                  .trim()
-                  .replace(/\s/, "")
-                  .substring(4, newUrl.length - 4);
-              }
-            }
+        //       if (
+        //         newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+        //         "h"
+        //       ) {
+        //         newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+        //       } else {
+        //         newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+        //       }
+        //     } else {
+        //       newUrl = atob(item.guid);
+        //       if (
+        //         newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+        //         "h"
+        //       ) {
+        //         newUrl = newUrl
+        //           .toString()
+        //           .trim()
+        //           .replace(/\s/, "")
+        //           .substring(5, newUrl.length - 4);
+        //       } else {
+        //         newUrl = newUrl
+        //           .toString()
+        //           .trim()
+        //           .replace(/\s/, "")
+        //           .substring(4, newUrl.length - 4);
+        //       }
+        //     }
 
-            arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
-          });
-        }
+        //     arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
+        //   });
+        // }
 
         if (fntimes == true) {
           let res7 = await fetch("/api/financialtimes/", {
@@ -335,72 +335,72 @@ export default function Home() {
 
           feed = await parser.parseString(data17.result);
 
-          let res18 = await fetch("/api/financialtimes/", {
-            method: "POST",
-            mode: "cors",
-            body: "https://moxie.foxbusiness.com/google-publisher/real-estate.xml",
-          });
-          let data18 = await res18.json();
+          // let res18 = await fetch("/api/financialtimes/", {
+          //   method: "POST",
+          //   mode: "cors",
+          //   body: "https://moxie.foxbusiness.com/google-publisher/real-estate.xml",
+          // });
+          // let data18 = await res18.json();
 
-          feed = await parser.parseString(data18.result);
+          // feed = await parser.parseString(data18.result);
 
-          feed.items.forEach((item) => {
-            arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
-          });
+          // feed.items.forEach((item) => {
+          //   arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
+          // });
         }
 
-        if (reuters == true) {
-          let res19 = await fetch("/api/financialtimes/", {
-            method: "POST",
-            mode: "cors",
-            body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/technology&ceid=US:en&hl=en-US&gl=US",
-          });
-          let data19 = await res19.json();
+        // if (reuters == true) {
+        //   let res19 = await fetch("/api/financialtimes/", {
+        //     method: "POST",
+        //     mode: "cors",
+        //     body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/technology&ceid=US:en&hl=en-US&gl=US",
+        //   });
+        //   let data19 = await res19.json();
 
-          feed = await parser.parseString(data19.result);
+        //   feed = await parser.parseString(data19.result);
 
-          feed.items.forEach((item) => {
-            let newUrl = "";
-            if (item.guid.toString().includes("_SAQA")) {
-              newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
+        //   feed.items.forEach((item) => {
+        //     let newUrl = "";
+        //     if (item.guid.toString().includes("_SAQA")) {
+        //       newUrl = atob(item.guid.toString().substring(0, item.guid.toString().length - 5));
 
-              if (
-                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-                "h"
-              ) {
-                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
-              } else {
-                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
-              }
-            } else {
-              newUrl = atob(item.guid);
-              if (
-                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-                "h"
-              ) {
-                newUrl = newUrl
-                  .toString()
-                  .trim()
-                  .replace(/\s/, "")
-                  .substring(5, newUrl.length - 4);
-              } else {
-                newUrl = newUrl
-                  .toString()
-                  .trim()
-                  .replace(/\s/, "")
-                  .substring(4, newUrl.length - 4);
-              }
-            }
+        //       if (
+        //         newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+        //         "h"
+        //       ) {
+        //         newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+        //       } else {
+        //         newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+        //       }
+        //     } else {
+        //       newUrl = atob(item.guid);
+        //       if (
+        //         newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+        //         "h"
+        //       ) {
+        //         newUrl = newUrl
+        //           .toString()
+        //           .trim()
+        //           .replace(/\s/, "")
+        //           .substring(5, newUrl.length - 4);
+        //       } else {
+        //         newUrl = newUrl
+        //           .toString()
+        //           .trim()
+        //           .replace(/\s/, "")
+        //           .substring(4, newUrl.length - 4);
+        //       }
+        //     }
 
-            arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
-          });
-        }
+        //     arr.push({ url: newUrl, title: item.title, time: new Date(item.pubDate) });
+        //   });
+        // }
 
         if (reuters == true) {
           let res20 = await fetch("/api/financialtimes/", {
             method: "POST",
             mode: "cors",
-            body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com/markets&ceid=US:en&hl=en-US&gl=US",
+            body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US",
           });
           let data20 = await res20.json();
 
