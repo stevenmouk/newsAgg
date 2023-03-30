@@ -106,8 +106,6 @@ export default function Home() {
         feed = await parser.parseString(data4.result);
 
         feed.items.forEach((item) => {
-          // console.log(item);
-
           if (item.link.includes("finance.yahoo.com")) {
             arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
           }
@@ -454,10 +452,8 @@ export default function Home() {
 
         //   arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         // });
-        console.log("don1");
 
         let sortedArray = arr.sort((a, b) => b.time - a.time);
-        console.log("don2");
 
         var final = sortedArray.reduce(function (p, c) {
           if (
@@ -470,7 +466,6 @@ export default function Home() {
           return p;
         }, []);
 
-        console.log("don3");
         setNews(final);
 
         localStorage.setItem("newsArr", JSON.stringify(final));
