@@ -39,11 +39,7 @@ export default function Home() {
   useEffect(() => {
     async function x() {
       try {
-        if (JSON.parse(localStorage.getItem("newsArr")) != null) {
-          setNews(JSON.parse(localStorage.getItem("newsArr")));
-        } else {
-          setisload(true);
-        }
+        setisload(true);
 
         // let res = await fetch("/api/newsArticleApi/", {
         //   method: "POST",
@@ -468,8 +464,6 @@ export default function Home() {
 
         setNews(final);
 
-        localStorage.setItem("newsArr", JSON.stringify(final));
-
         setFinal(final);
         setisload(false);
       } catch (error) {
@@ -490,7 +484,7 @@ export default function Home() {
       article.includes("finance.yahoo.com") ||
       article.includes("foxbusiness.com")
     ) {
-      router.push(article);
+      window.open(article);
     } else {
       let res = await fetch("/api/bookapi/", {
         method: "POST",
@@ -522,7 +516,7 @@ export default function Home() {
       setNewData(newData);
 
       localStorage.setItem("newData", JSON.stringify(newData));
-      router.push(`/${article}`);
+      window.open(`/${article}`);
     }
   }
 
