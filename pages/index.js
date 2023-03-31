@@ -96,20 +96,20 @@ export default function Home() {
           arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         });
 
-        let res4 = await fetch("/api/financialtimes/", {
-          method: "POST",
-          mode: "cors",
-          body: "https://finance.yahoo.com/news/rss",
-        });
-        let data4 = await res4.json();
+        // let res4 = await fetch("/api/financialtimes/", {
+        //   method: "POST",
+        //   mode: "cors",
+        //   body: "https://finance.yahoo.com/news/rss",
+        // });
+        // let data4 = await res4.json();
 
-        feed = await parser.parseString(data4.result);
+        // feed = await parser.parseString(data4.result);
 
-        feed.items.forEach((item) => {
-          if (item.link.includes("finance.yahoo.com")) {
-            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-          }
-        });
+        // feed.items.forEach((item) => {
+        //   if (item.link.includes("finance.yahoo.com")) {
+        //     arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+        //   }
+        // });
 
         // if (reuters == true) {
         //   let res5 = await fetch("/api/financialtimes/", {
