@@ -49,40 +49,9 @@ export default function NewsItem({ title, link, time }) {
     }
   }
 
-  async function setData() {
-    let res = await fetch("/api/bookapi/", {
-      method: "POST",
-      mode: "cors",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(`${link}`),
-    });
-    let data = await res.json();
-    let newData = data.result;
-
-    const array = link.split("/");
-    var base = array[0] + "//" + array[2];
-
-    var mapObj = {
-      'href="/': `href="${base}/`,
-      'src="/': `src="${base}/`,
-      'srcset="/': `srcset="${base}/`,
-      base: `br`,
-      'id="bN015htcoyT__google-cache-hdr"': 'style="display:none !important;"',
-    };
-
-    var re = new RegExp(Object.keys(mapObj).join("|"), "gi");
-    newData = newData.replace(re, function (matched) {
-      return mapObj[matched];
-    });
-
-    localStorage.setItem("newData", JSON.stringify(newData));
-  }
-
   return (
     <a href={href} target="_blank" rel="noopener noreferrer">
-      <div className="w-full flex items-center justify-center" onClick={setData}>
+      <div className="w-full flex items-center justify-center">
         <div
           className={`${styles.yY3Lee}  w-[350px] sm:w-[500px] md:w-[640px]`}
           jscontroller="ZpnVYd"

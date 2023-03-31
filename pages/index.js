@@ -474,15 +474,36 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  const testing = (url) => {
-    const temp = document.body;
-    const newATag = document.createElement("a");
+  async function setDataFunc(article) {
+    let res = await fetch("/api/bookapi/", {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(`${article}`),
+    });
+    let data = await res.json();
+    let newData = data.result;
 
-    newATag.href = url;
-    newATag.target = "_blank";
-    newATag.rel = "noopener noreferrer";
-    newATag.click();
-  };
+    const array = article.split("/");
+    var base = array[0] + "//" + array[2];
+
+    var mapObj = {
+      'href="/': `href="${base}/`,
+      'src="/': `src="${base}/`,
+      'srcset="/': `srcset="${base}/`,
+      base: `br`,
+      'id="bN015htcoyT__google-cache-hdr"': 'style="display:none !important;"',
+    };
+
+    var re = new RegExp(Object.keys(mapObj).join("|"), "gi");
+    newData = newData.replace(re, function (matched) {
+      return mapObj[matched];
+    });
+
+    localStorage.setItem("newData", JSON.stringify(newData));
+  }
 
   return (
     <div>
@@ -503,7 +524,12 @@ export default function Home() {
             {news ? (
               news.map((article) => {
                 return (
-                  <div className="">
+                  <div
+                    className=""
+                    onClick={() => {
+                      setDataFunc(article.url);
+                    }}
+                  >
                     <NewsItem title={article.title} link={article.url} time={article.time} />
                   </div>
                 );
