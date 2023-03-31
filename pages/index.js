@@ -478,8 +478,7 @@ export default function Home() {
     const temp = document.body;
     const newATag = document.createElement("a");
 
-    newATag.href =
-      "https://www.nytimes.com/2023/03/11/technology/silicon-valley-bank-crypto-investing.html";
+    newATag.href = url;
     newATag.target = "_blank";
     newATag.rel = "noopener noreferrer";
     newATag.click();
@@ -585,6 +584,14 @@ export default function Home() {
                 locally. To download, simply search for the article and press the download button on
                 the top right corner.
               </p>
+              <a
+                href="https://www.nytimes.com/2023/03/11/technology/silicon-valley-bank-crypto-investing.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-black"
+              >
+                hello
+              </a>
             </div>
           </div>
         </div>
