@@ -474,13 +474,23 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  const testing = (url) => {
+    const temp = document.body;
+    const newATag = document.createElement("a");
+
+    newATag.href = url;
+    newATag.target = "_blank";
+    newATag.rel = "noopener noreferrer";
+    newATag.click();
+  };
+
   async function getArticle(article) {
     if (
       article.includes("yptr=yahoo") ||
       article.includes("finance.yahoo.com") ||
       article.includes("foxbusiness.com")
     ) {
-      window.open(article);
+      testing(article);
     } else {
       let res = await fetch("/api/bookapi/", {
         method: "POST",
@@ -512,7 +522,7 @@ export default function Home() {
       setNewData(newData);
 
       localStorage.setItem("newData", JSON.stringify(newData));
-      window.open(`/${article}`);
+      testing(`/${article}`);
     }
   }
 
