@@ -17,14 +17,13 @@ import Loading from "../components/loading";
 import Nav3 from "../components/nav3";
 
 export default function Home() {
-  const [news, setNews] = useState([]);
+  const [news, setNews] = useState(null);
   // const [blogs, setBlogs] = useState([]);
   const [data, setData] = useState();
   const [newData, setNewData] = useState(null);
   const router = useRouter();
 
   const [final, setFinal] = useState([]);
-  const [isload, setisload] = useState(false);
 
   // const getData = async () => {
   //   try {
@@ -39,8 +38,6 @@ export default function Home() {
   useEffect(() => {
     async function x() {
       try {
-        setisload(true);
-
         // let res = await fetch("/api/newsArticleApi/", {
         //   method: "POST",
         //   mode: "cors",
@@ -92,20 +89,20 @@ export default function Home() {
           arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
         });
 
-        // let res4 = await fetch("/api/financialtimes/", {
-        //   method: "POST",
-        //   mode: "cors",
-        //   body: "https://finance.yahoo.com/news/rss",
-        // });
-        // let data4 = await res4.json();
+        let res4 = await fetch("/api/financialtimes/", {
+          method: "POST",
+          mode: "cors",
+          body: "https://finance.yahoo.com/news/rss",
+        });
+        let data4 = await res4.json();
 
-        // feed = await parser.parseString(data4.result);
+        feed = await parser.parseString(data4.result);
 
-        // feed.items.forEach((item) => {
-        //   if (item.link.includes("finance.yahoo.com")) {
-        //     arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
-        //   }
-        // });
+        feed.items.forEach((item) => {
+          if (item.link.includes("finance.yahoo.com")) {
+            arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
+          }
+        });
 
         // if (reuters == true) {
         //   let res5 = await fetch("/api/financialtimes/", {
@@ -465,7 +462,6 @@ export default function Home() {
         setNews(final);
 
         setFinal(final);
-        setisload(false);
       } catch (error) {
         console.log(error);
       }
@@ -533,157 +529,22 @@ export default function Home() {
 
       <Nav3 />
 
-      {/* <div className="h-fit w-fit relative rounded-lg bg-black right-10 top-[300px] p-4 flex flex-col ">
-        <div className="switch">
-          <input
-            type="checkbox"
-            className="input"
-            id="box1"
-            defaultChecked
-            onChange={() => setFinance(!finance)}
-          />
-          <label htmlFor="box1" className="slider"></label>
-          <label htmlFor="box1" className="text-white text-lg ml-1 hover:cursor-pointer">
-            Yahoo
-          </label>
-        </div>
-        <div className="switch">
-          <input
-            className="input"
-            type="checkbox"
-            id="box2"
-            defaultChecked
-            onChange={() => setReuters(!reuters)}
-          />
-          <label htmlFor="box2" className="slider"></label>
-          <label htmlFor="box2" className="text-white text-lg ml-1 hover:cursor-pointer">
-            Reuters
-          </label>
-        </div>
-        <div className="switch">
-          <input
-            type="checkbox"
-            className="input"
-            id="box3"
-            defaultChecked
-            onChange={() => setFox(!fox)}
-          />
-          <label htmlFor="box3" className="slider"></label>
-          <label htmlFor="box3" className="text-white text-lg ml-1 hover:cursor-pointer">
-            Fox Business
-          </label>
-        </div>
-        <div className="switch">
-          <input
-            type="checkbox"
-            className="input"
-            id="box4"
-            defaultChecked
-            onChange={() => setNyTimes(!nytimes)}
-          />
-          <label htmlFor="box4" className="slider"></label>
-          <label htmlFor="box4" className="text-white text-lg ml-1 hover:cursor-pointer">
-            New York Times
-          </label>
-        </div>
-        <div className="switch">
-          <input
-            type="checkbox"
-            className="input"
-            id="box5"
-            defaultChecked
-            onChange={() => setFnTimes(!fntimes)}
-          />
-          <label htmlFor="box5" className="slider"></label>
-          <label htmlFor="box5" className="text-white text-lg ml-1 hover:cursor-pointer">
-            Financial Times
-          </label>
-        </div>
-        <div className="switch">
-          <input
-            type="checkbox"
-            className="input"
-            id="box6"
-            defaultChecked
-            onChange={() => setEcon(!econ)}
-          />
-          <label htmlFor="box6" className="slider"></label>
-          <label htmlFor="box6" className="text-white text-lg ml-1 hover:cursor-pointer">
-            The Economist
-          </label>
-        </div>
-        <div className="switch">
-          <input
-            type="checkbox"
-            className="input"
-            id="box7"
-            defaultChecked
-            onChange={() => setMarket(!market)}
-          />
-          <label htmlFor="box7" className="slider"></label>
-          <label htmlFor="box7" className="text-white text-lg ml-1 hover:cursor-pointer">
-            Market Watch
-          </label>
-        </div>
-      </div> */}
-
       <main className=" min-h-screen  flex flex-col ">
         <div className="w-full flex flex-col">
-          {/* <div className="mt-3 pl-4  h-16 flex flex-row justify-between ">
-            <Link href="/">
-              <h1 className="font-serif text-3xl font-bold pl-8 sm:pl-0 hidden sm:inline">
-                Bankrun News
-              </h1>
-            </Link>
-            <div></div>
-          </div> */}
-
           <div className="w-full min-h-screen flex items-center flex-col  ">
-            {/* <div className="flex flex-row space-x-5">
-              <Ticker ticker="^GSPC" name="S&P 500" />
-              <Ticker ticker="^DJI" name="Dow 30" />
-              <Ticker ticker="^IXIC" name="Nasdaq" />
-
-              <Ticker ticker="CL=F" name="Cruid Oil" />
-            </div> */}
-
-            {/* <h1 className="w-[80%] sm:w-full pt-10  pb-3  max-w-screen-md  text-4xl sm:text-5xl md:text-5xl font-extrabold sm:tracking-tight text-center mb-10">
-              Live News Feed:
-            </h1> */}
-
-            {news && !isload
-              ? news.map((article) => {
-                  return (
-                    <div className="" onClick={() => getArticle(`${article.url}`)}>
-                      <NewsItem title={article.title} link={article.url} time={article.time} />
-                    </div>
-                  );
-                })
-              : ""}
-
-            {/* {blogs
-              ? blogs.map((article) => {
-                  return (
-                    <div
-                    // onClick={() => {
-                    //   search(article);
-                    // }}
-                    >
-                      {article}
-                    </div>
-                  );
-                })
-              : ""} */}
-
-            {/* <div dangerouslySetInnerHTML={{ __html: data }} /> */}
-
-            {/* <div className="">
-              <TradingViewWidget />
-            </div> */}
+            {news ? (
+              news.map((article) => {
+                return (
+                  <div className="" onClick={() => getArticle(`${article.url}`)}>
+                    <NewsItem title={article.title} link={article.url} time={article.time} />
+                  </div>
+                );
+              })
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
-
-        {isload ? <Loading /> : <div></div>}
 
         <div className=" flex flex-col items-center justify-center mt-[50px]">
           <div className="sm:w-[60%] w-[90%]  flex flex-col items-center justify-center text-black font-serif  mb-28">
