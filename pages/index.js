@@ -478,7 +478,8 @@ export default function Home() {
     const temp = document.body;
     const newATag = document.createElement("a");
 
-    newATag.href = url;
+    newATag.href =
+      "https://www.nytimes.com/2023/03/11/technology/silicon-valley-bank-crypto-investing.html";
     newATag.target = "_blank";
     newATag.rel = "noopener noreferrer";
     newATag.click();
