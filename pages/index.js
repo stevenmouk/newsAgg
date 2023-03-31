@@ -20,7 +20,7 @@ export default function Home() {
   const [news, setNews] = useState(null);
   // const [blogs, setBlogs] = useState([]);
   const [data, setData] = useState();
-  const [newData, setNewData] = useState(null);
+
   const router = useRouter();
 
   const [final, setFinal] = useState([]);
@@ -484,48 +484,6 @@ export default function Home() {
     newATag.click();
   };
 
-  async function getArticle(article) {
-    if (
-      article.includes("yptr=yahoo") ||
-      article.includes("finance.yahoo.com") ||
-      article.includes("foxbusiness.com")
-    ) {
-      testing(article);
-    } else {
-      let res = await fetch("/api/bookapi/", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(`${article}`),
-      });
-      let data = await res.json();
-      let newData = data.result;
-
-      const array = article.split("/");
-      var base = array[0] + "//" + array[2];
-
-      var mapObj = {
-        'href="/': `href="${base}/`,
-        'src="/': `src="${base}/`,
-        'srcset="/': `srcset="${base}/`,
-        base: `br`,
-        'id="bN015htcoyT__google-cache-hdr"': 'style="display:none !important;"',
-      };
-
-      var re = new RegExp(Object.keys(mapObj).join("|"), "gi");
-      newData = newData.replace(re, function (matched) {
-        return mapObj[matched];
-      });
-
-      setNewData(newData);
-
-      localStorage.setItem("newData", JSON.stringify(newData));
-      testing(`/${article}`);
-    }
-  }
-
   return (
     <div>
       <Head>
@@ -545,7 +503,7 @@ export default function Home() {
             {news ? (
               news.map((article) => {
                 return (
-                  <div className="" onClick={() => getArticle(`${article.url}`)}>
+                  <div className="">
                     <NewsItem title={article.title} link={article.url} time={article.time} />
                   </div>
                 );
@@ -584,14 +542,6 @@ export default function Home() {
                 locally. To download, simply search for the article and press the download button on
                 the top right corner.
               </p>
-              <a
-                href="https://www.nytimes.com/2023/03/11/technology/silicon-valley-bank-crypto-investing.html"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-black"
-              >
-                hello
-              </a>
             </div>
           </div>
         </div>
