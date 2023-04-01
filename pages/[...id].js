@@ -27,7 +27,7 @@ export default function Test() {
       ) {
         document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML = "";
       }
-    }, "500");
+    }, "1000");
   }, [pageData]);
 
   //bg-[#FFF0E5]
