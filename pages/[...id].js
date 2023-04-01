@@ -11,22 +11,25 @@ export default function Test() {
   const [pageData, setPageData] = useState(null);
 
   useEffect(() => {
-    setPageData(JSON.parse(localStorage.getItem("newData")));
+    setTimeout(() => {
+      setPageData(JSON.parse(localStorage.getItem("newData")));
 
-    if (
-      document.getElementsByClassName("o-cookie-message ")[0]?.classList != null &&
-      document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML != undefined
-    ) {
-      console.log("found");
-      document.getElementsByClassName("o-cookie-message ")[0].classList = "";
-    }
-    if (
-      document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != null &&
-      document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != undefined
-    ) {
-      document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML = "";
-    }
+      if (
+        document.getElementsByClassName("o-cookie-message ")[0]?.classList != null &&
+        document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML != undefined
+      ) {
+        console.log("found");
+        document.getElementsByClassName("o-cookie-message ")[0].classList = "";
+      }
+      if (
+        document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != null &&
+        document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != undefined
+      ) {
+        document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML = "";
+      }
+    }, "1000");
   }, [pageData]);
+
   //bg-[#FFF0E5]
 
   return (
@@ -41,11 +44,7 @@ export default function Test() {
       </Head>
 
       <main className=" min-h-screen  flex flex-col bg-white">
-        {pageData == null ? (
-          <div>null</div>
-        ) : (
-          <div dangerouslySetInnerHTML={{ __html: pageData }} />
-        )}
+        {pageData == null ? <div></div> : <div dangerouslySetInnerHTML={{ __html: pageData }} />}
       </main>
       <footer></footer>
     </div>
