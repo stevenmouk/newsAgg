@@ -1,9 +1,8 @@
-import clientPromise from "../../lib/mongodb";
+import { connectToDatabase } from "../../lib/mongodb";
 
 export default async (req, res) => {
   try {
-    const client = await clientPromise;
-    const db = client.db("rssFeeds");
+    const { db } = await connectToDatabase();
 
     const result = await db
       .collection("rssFeeds")
