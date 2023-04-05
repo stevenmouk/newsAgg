@@ -15,8 +15,9 @@ import Script from "next/script";
 import Nav2 from "../components/nav2";
 import Loading from "../components/loading";
 import Nav3 from "../components/nav3";
+import { connectToDatabase } from "../lib/mongodb";
 
-export default function Home() {
+export default function Home({ newsArr }) {
   const [news, setNews] = useState(null);
   // const [blogs, setBlogs] = useState([]);
   const [data, setData] = useState();
@@ -38,71 +39,71 @@ export default function Home() {
   useEffect(() => {
     async function x() {
       try {
-        const res = await fetch("/api/mongoapi/");
-        let result = await res.json();
+        // const res = await fetch("/api/mongoapi/");
+        // let result = await res.json();
 
-        let arr = result.result;
+        // let arr = result.result;
 
-        for (let i = 0; i < arr.length; i++) {
-          arr[i].pubDate = new Date(arr[i].pubDate);
+        // for (let i = 0; i < arr.length; i++) {
+        //   arr[i].pubDate = new Date(arr[i].pubDate);
 
-          if (arr[i].link?.toString().includes("google.com")) {
-            const regex = /\/articles\/(.+)/;
-            const match = arr[i].link.toString().match(regex)[1];
+        //   if (arr[i].link?.toString().includes("google.com")) {
+        //     const regex = /\/articles\/(.+)/;
+        //     const match = arr[i].link.toString().match(regex)[1];
 
-            let newUrl = "";
-            if (match.includes("_SAQA")) {
-              newUrl = atob(match.toString().substring(0, match.toString().length - 10));
-              // console.log(newUrl);
-              if (
-                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-                "h"
-              ) {
-                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
-              } else {
-                newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
-              }
-            } else {
-              let newMatch = match.substring().substring(0, match.toString().length - 5);
+        //     let newUrl = "";
+        //     if (match.includes("_SAQA")) {
+        //       newUrl = atob(match.toString().substring(0, match.toString().length - 10));
+        //       // console.log(newUrl);
+        //       if (
+        //         newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+        //         "h"
+        //       ) {
+        //         newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+        //       } else {
+        //         newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+        //       }
+        //     } else {
+        //       let newMatch = match.substring().substring(0, match.toString().length - 5);
 
-              newUrl = atob(newMatch);
-              if (
-                newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
-                "h"
-              ) {
-                newUrl = newUrl
-                  .toString()
-                  .trim()
-                  .replace(/\s/, "")
-                  .substring(5, newUrl.length - 4);
-              } else {
-                newUrl = newUrl
-                  .toString()
-                  .trim()
-                  .replace(/\s/, "")
-                  .substring(4, newUrl.length - 4);
-              }
-            }
-            arr[i].link = newUrl;
-          }
-        }
+        //       newUrl = atob(newMatch);
+        //       if (
+        //         newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) !=
+        //         "h"
+        //       ) {
+        //         newUrl = newUrl
+        //           .toString()
+        //           .trim()
+        //           .replace(/\s/, "")
+        //           .substring(5, newUrl.length - 4);
+        //       } else {
+        //         newUrl = newUrl
+        //           .toString()
+        //           .trim()
+        //           .replace(/\s/, "")
+        //           .substring(4, newUrl.length - 4);
+        //       }
+        //     }
+        //     arr[i].link = newUrl;
+        //   }
+        // }
 
-        let final = arr.reduce(function (p, c) {
-          if (
-            !p.some(function (el) {
-              return el.title === c.title || el.link === c.link;
-            })
-          )
-            p.push(c);
+        // let final = arr.reduce(function (p, c) {
+        //   if (
+        //     !p.some(function (el) {
+        //       return el.title === c.title || el.link === c.link;
+        //     })
+        //   )
+        //     p.push(c);
 
-          return p;
-        }, []);
-        let sortedArray = final.sort((a, b) => b.pubDate - a.pubDate);
-        if (sortedArray.length > 100) {
-          sortedArray.splice(100);
-        }
+        //   return p;
+        // }, []);
+        // let sortedArray = final.sort((a, b) => b.pubDate - a.pubDate);
+        // if (sortedArray.length > 100) {
+        //   sortedArray.splice(100);
+        // }
 
-        setNews(sortedArray);
+        setNews(newsArr);
       } catch (error) {
         console.log(error);
       }
@@ -221,4 +222,77 @@ export default function Home() {
       <footer></footer>
     </div>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { db } = await connectToDatabase();
+
+  let arr = await db
+    .collection("rssFeeds")
+    .find({})
+
+    .toArray();
+
+  for (let i = 0; i < arr?.length; i++) {
+    arr[i].pubDate = new Date(arr[i].pubDate);
+
+    if (arr[i].link?.toString().includes("google.com")) {
+      const regex = /\/articles\/(.+)/;
+      const match = arr[i].link.toString().match(regex)[1];
+
+      let newUrl = "";
+      if (match.includes("_SAQA")) {
+        newUrl = atob(match.toString().substring(0, match.toString().length - 10));
+        // console.log(newUrl);
+        if (
+          newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) != "h"
+        ) {
+          newUrl = newUrl.toString().trim().replace(/\s/, "").substring(5, newUrl.length);
+        } else {
+          newUrl = newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length);
+        }
+      } else {
+        let newMatch = match.substring().substring(0, match.toString().length - 5);
+
+        newUrl = atob(newMatch);
+        if (
+          newUrl.toString().trim().replace(/\s/, "").substring(4, newUrl.length).charAt(0) != "h"
+        ) {
+          newUrl = newUrl
+            .toString()
+            .trim()
+            .replace(/\s/, "")
+            .substring(5, newUrl.length - 4);
+        } else {
+          newUrl = newUrl
+            .toString()
+            .trim()
+            .replace(/\s/, "")
+            .substring(4, newUrl.length - 4);
+        }
+      }
+      arr[i].link = newUrl;
+    }
+  }
+
+  let final = arr?.reduce(function (p, c) {
+    if (
+      !p.some(function (el) {
+        return el.title === c.title || el.link === c.link;
+      })
+    )
+      p.push(c);
+
+    return p;
+  }, []);
+  let sortedArray = final?.sort((a, b) => b.pubDate - a.pubDate);
+  if (sortedArray?.length > 100) {
+    sortedArray.splice(100);
+  }
+
+  const properties = JSON.parse(JSON.stringify(sortedArray));
+
+  return {
+    props: { newsArr: properties },
+  };
 }
