@@ -13,6 +13,7 @@
     "buffer": "^6.0.3",
     "cheerio": "^1.0.0-rc.12",
     "dotenv": "^16.0.3",
+    "mongodb": "^5.1.0",
     "next": "13.1.1",
     "protobufjs": "^7.2.2",
     "react": "18.2.0",
@@ -25,6 +26,7 @@
     "eslint": "8.31.0",
     "eslint-config-next": "13.1.1",
     "postcss": "^8.4.20",
-    "tailwindcss": "^3.2.4"
+    "tailwindcss": "^3.2.4",
+    "webpack": "^5.77.0"
   }
 }
