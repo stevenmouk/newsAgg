@@ -11,23 +11,21 @@ export default function Test() {
   const [pageData, setPageData] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => {
-      setPageData(JSON.parse(localStorage.getItem("newData")));
+    setPageData(JSON.parse(localStorage.getItem("newData")));
 
-      if (
-        document.getElementsByClassName("o-cookie-message ")[0]?.classList != null &&
-        document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML != undefined
-      ) {
-        console.log("found");
-        document.getElementsByClassName("o-cookie-message ")[0].classList = "";
-      }
-      if (
-        document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != null &&
-        document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != undefined
-      ) {
-        document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML = "";
-      }
-    }, "1000");
+    if (
+      document.getElementsByClassName("o-cookie-message ")[0]?.classList != null &&
+      document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML != undefined
+    ) {
+      console.log("found");
+      document.getElementsByClassName("o-cookie-message ")[0].classList = "";
+    }
+    if (
+      document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != null &&
+      document.getElementsByClassName("o-cookie-message__outer")[0]?.innerHTML != undefined
+    ) {
+      document.getElementsByClassName("o-cookie-message__outer")[0].innerHTML = "";
+    }
   }, [pageData]);
 
   //bg-[#FFF0E5]
