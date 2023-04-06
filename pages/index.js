@@ -167,7 +167,7 @@ export async function getServerSideProps(context) {
   let parser = new Parser();
   let feed;
 
-  let res = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://www.ft.com/technology?format=rss",
@@ -195,7 +195,7 @@ export async function getServerSideProps(context) {
   //   });
   // }
 
-  let res3 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res3 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml",
@@ -208,7 +208,7 @@ export async function getServerSideProps(context) {
     arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
   });
 
-  let res4 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res4 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://finance.yahoo.com/news/rss",
@@ -285,7 +285,7 @@ export async function getServerSideProps(context) {
   //   });
   // }
 
-  let res7 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res7 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://www.ft.com/companies?format=rss",
@@ -311,7 +311,7 @@ export async function getServerSideProps(context) {
   //   arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
   // });
 
-  let res9 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res9 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml",
@@ -324,7 +324,7 @@ export async function getServerSideProps(context) {
     arr.push({ url: item.link, title: item.title, time: new Date(item.pubDate) });
   });
 
-  let res10 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res10 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://rss.nytimes.com/services/xml/rss/nyt/economy.xml",
@@ -352,7 +352,7 @@ export async function getServerSideProps(context) {
   //   });
   // }
 
-  let res12 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res12 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://moxie.foxbusiness.com/google-publisher/latest.xml",
@@ -365,7 +365,7 @@ export async function getServerSideProps(context) {
     arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
   });
 
-  let res13 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res13 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://moxie.foxbusiness.com/google-publisher/economy.xml",
@@ -378,7 +378,7 @@ export async function getServerSideProps(context) {
     arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
   });
 
-  let res14 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res14 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://moxie.foxbusiness.com/google-publisher/markets.xml",
@@ -404,7 +404,7 @@ export async function getServerSideProps(context) {
   //   arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
   // });
 
-  let res16 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res16 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://moxie.foxbusiness.com/google-publisher/technology.xml",
@@ -417,7 +417,7 @@ export async function getServerSideProps(context) {
     arr.push({ url: item.guid, title: item.title, time: new Date(item.pubDate) });
   });
 
-  let res17 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res17 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://moxie.foxbusiness.com/google-publisher/small-business.xml",
@@ -486,7 +486,7 @@ export async function getServerSideProps(context) {
   //   });
   // }
 
-  let res20 = await fetch("http://localhost:3000/api/financialtimes/", {
+  let res20 = await fetch(process.env.URL, {
     method: "POST",
     mode: "cors",
     body: "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US",
